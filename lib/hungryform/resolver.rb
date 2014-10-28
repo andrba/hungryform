@@ -11,12 +11,15 @@ class HungryForm
     # If name is lambda - returns lambda's result
     # If name is present in the elements hash - returns element's value
     # Otherwise returns name
-    def get_value(name, placeholders = {})
-      return name.call(obj) if name.respond_to? :call
-      
-      #Protect from changing the original value and apply placeholders
+    def get_value(name, element = nil)
+      return name.call(element) if name.respond_to? :call
+
       name = name.to_s.dup
-      placeholders.each { |k, v| name[k] &&= v }
+      
+      #apply placeholders
+      if element
+        element.placeholders.each { |k, v| name[k] &&= v }
+      end
 
       return name if !elements.has_key?(name)
       elements[name].value

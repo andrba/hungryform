@@ -12,7 +12,7 @@ describe HungryForm do
     } }
 
     it "should contain 2 pages" do
-      expect(form.pages.size).to eq 2
+      expect(subject.pages.size).to eq 2
     end
   end
 
