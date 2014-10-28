@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Hungryform::VERSION
   spec.authors       = ["Andrey Bazhutkin"]
   spec.email         = ["andrey.bazhutkin@gmail.com"]
-  spec.summary       = "Multi page forms"
-  spec.homepage      = ""
+  spec.summary       = "A Ruby Library for working with multi page forms"
+  spec.homepage      = "A Ruby Library for working with multi page forms"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
