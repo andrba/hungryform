@@ -8,10 +8,5 @@ class HungryForm
 
       super
     end
-
-    def group(name, options = {}, &block)
-      @elements << Elements::Group.new(name, options, @resolver)
-      instance_eval(&block)
-    end
   end
 end

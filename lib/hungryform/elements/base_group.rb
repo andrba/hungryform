@@ -8,6 +8,11 @@ class HungryForm
       instance_eval(&block)
     end
 
+    def group(name, options = {}, &block)
+      @elements << Group.new(name, options, @resolver)
+      instance_eval(&block)
+    end
+
     def method_missing(name, *args, &block)
       #Find a matching class
       klass = HungryForm.constants.find {|c| Class === HungryForm.const_get(c) && c.to_s.underscore.to_sym == name}
