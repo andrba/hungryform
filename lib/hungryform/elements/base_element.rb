@@ -1,6 +1,6 @@
 class HungryForm
   class BaseElement
-    attr_accessor :visible, :name
+    attr_accessor :visible, :name, :placeholders
     alias_method :visible?, :visible
 
     def initialize(name, options = {}, resolver)

@@ -1,12 +1,13 @@
 require "spec_helper"
 
 describe HungryForm::Page do
-  describe ".new" do
-    let(:resolver) { HungryForm::Resolver.new() }
-    let(:options) { {} }
-    let(:page) { HungryForm::Page.new(:pagename, options, resolver) {} }
+  let(:resolver) { HungryForm::Resolver.new() }
+  let(:options) { {} }
+  let(:page) { HungryForm::Page.new(:pagename, options, resolver) {} }
 
+  describe ".new" do
     it_behaves_like "an element"
+    it_behaves_like "a group"
 
     it "should have a humanized label based on page's name" do
       expect(page.label).to eq "Pagename"
@@ -26,6 +27,11 @@ describe HungryForm::Page do
   end
 
   describe "#group" do 
-    pending
+    it "should contain a group" do
+      group_block = proc{}
+
+      page.group(:group_name, {}, &group_block)
+      expect(page.elements.first.class).to eq HungryForm::Group
+    end
   end
 end

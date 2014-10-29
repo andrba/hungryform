@@ -20,4 +20,18 @@ class HungryForm
     page = Page.new(name, options, @resolver, &block)
     pages << page if page.visible?
   end
+
+  def valid?
+    is_valid = true
+    pages.each do |page|
+      #Loop through pages to get all errors
+      is_valid = false if page.invalid?
+    end
+
+    is_valid
+  end
+
+  def invalid?
+    !valid?
+  end
 end
