@@ -5,11 +5,11 @@ require 'hungryform/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "hungryform"
-  spec.version       = Hungryform::VERSION
+  spec.version       = HungryForm::VERSION
   spec.authors       = ["Andrey Bazhutkin"]
   spec.email         = ["andrey.bazhutkin@gmail.com"]
   spec.summary       = "A Ruby Library for working with multi page forms"
-  spec.homepage      = "A Ruby Library for working with multi page forms"
+  spec.homepage      = "https://github.com/andrba/hungryform"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_dependency 'activesupport'
+  spec.add_dependency 'hashie'
 end

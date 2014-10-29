@@ -1,5 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext/string/inflections'
+require 'hashie'
 require "hungryform/version"
 require "hungryform/resolver"
 require "hungryform/elements"

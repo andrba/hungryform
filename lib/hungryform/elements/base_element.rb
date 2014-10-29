@@ -1,12 +1,15 @@
 class HungryForm
-  class BaseElement
-    attr_accessor :visible, :name, :placeholders
-    alias_method :visible?, :visible
+  class BaseElement < ::Hashie::Mash
+    attr_accessor :name, :placeholders
 
     def initialize(name, options = {}, resolver)
-      @name = name.to_s
+    	self.placeholders = {}
+      self.name = resolver.get_value(name, self)
       @resolver = resolver
-      @visible = options.has_key?(:visible)? options[:visible] : true
+
+      super(options)
+
+      self.visible = options.has_key?(:visible)? options[:visible] : true
     end
   end
 end
