@@ -20,8 +20,7 @@ describe HungryForm do
     subject(:form) { HungryForm.new() {} }
 
     it "should contain a page" do
-      page_block = proc{}
-      form.page(:page_name, {}, &page_block)
+      form.page(:page_name, {}) {}
       expect(form.pages.first.class).to eq HungryForm::Page
     end
   end

@@ -1,7 +1,7 @@
 RSpec.shared_examples "an element" do
   let(:resolver) { HungryForm::Resolver.new() }
   let(:options) { {} }
-  let(:element) { described_class.new(:element_name, "parent", options, resolver) {} }
+  let(:element) { described_class.new(:element_name, "parent_name", options, resolver) {} }
 
   describe "#visible?" do
     it "should be visible" do

@@ -3,6 +3,7 @@ require 'active_support/core_ext/string/inflections'
 require 'hashie'
 require "hungryform/version"
 require "hungryform/resolver"
+require "hungryform/validator"
 require "hungryform/elements"
 
 # HungryForm is an object that manages form creation and validation.

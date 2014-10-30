@@ -1,10 +1,10 @@
 class HungryForm
   class BaseElement < ::Hashie::Mash
-    attr_accessor :name, :placeholders
+    attr_accessor :name, :placeholders, :resolver
 
     def initialize(name, parent_name, options = {}, resolver)
     	self.placeholders ||= {}
-      @resolver = resolver
+      self.resolver = resolver
 
       super(options)
 
@@ -16,8 +16,6 @@ class HungryForm
     	else
     		self.label = resolver.get_value(name, self).humanize
   		end
-
-
     end
   end
 end

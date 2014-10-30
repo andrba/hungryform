@@ -1,19 +1,19 @@
 RSpec.shared_examples "a group" do
   let(:resolver) { HungryForm::Resolver.new() }
   let(:options) { {} }
-  let(:group) { described_class.new(:name, options, resolver) {} }
+  let(:group) { described_class.new(:name, "parent_name", options, resolver) {} }
+
+  it_behaves_like "an element"
 
   describe "#group" do
     it "creates a nested group" do
-      group.group(:nested, {}, &group_block) {}
-
+      group.group(:nested, {}) {}
       expect(group.elements.first.class).to eq HungryForm::Group
     end
 
     it "concatenates nested element's name with the parent's one" do
       group.group(:nested, {}) {}
-
-      expect(group.elements.first.name).to eq "name_nested"
+      expect(group.elements.first.name).to eq "parent_name_name_nested"
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.shared_examples "a group" do
 
     it "concatenates nested element's name with the parent's one" do
       group.html(:html)
-      expect(group.elements.first.name).to eq "name_html"
+      expect(group.elements.first.name).to eq "parent_name_name_html"
     end
   end
 end

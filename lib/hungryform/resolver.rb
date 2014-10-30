@@ -9,14 +9,14 @@ class HungryForm
 
     # Gets element value by element name. 
     # If name is lambda - returns lambda's result
-    # If name is present in the elements hash - returns element's value
-    # Otherwise returns name
+    # If name is present in the resolvers's elements hash - returns element's value
+    # Otherwise returns the argument without changes
     def get_value(name, element = nil)
       return name.call(element) if name.respond_to? :call
 
       name = name.to_s.dup
       
-      #apply placeholders
+      # apply placeholders
       if element
         element.placeholders.each { |k, v| name[k] &&= v }
       end
