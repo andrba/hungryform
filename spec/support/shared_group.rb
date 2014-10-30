@@ -21,12 +21,12 @@ RSpec.shared_examples "a group" do
 
   describe ".method_missing" do
     it "creates a nested element" do
-      group.html(:name, "body")
+      group.html(:name)
       expect(group.elements.first.class).to eq HungryForm::Html
     end
 
     it "concatenates nested element's name with the parent's one" do
-      group.html(:html, "body")
+      group.html(:html)
       expect(group.elements.first.name).to eq "name_html"
     end
   end

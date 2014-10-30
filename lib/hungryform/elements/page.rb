@@ -4,7 +4,7 @@ class HungryForm
   # 
   # A sample page could look like this:
   #   page :about do
-  #     html :before, "Please fill out the following fields"
+  #     html :before, value: "Please fill out the following fields"
   #     text_field :first_name
   #     text_field :last_name
   #   end
@@ -17,13 +17,11 @@ class HungryForm
   # If there is no title or label specified, they will be created
   # from the :name argument
   class Page < BaseGroup
-    attr_accessor :title, :label
+    attr_accessor :title
 
-    def initialize(name, options = {}, resolver, &block)
-      @label = options[:label] || name.to_s.humanize
-      @title = options[:title] || @label
-
+    def initialize(name, parent_name, options = {}, resolver, &block)
       super
+      self.title = self.title || self.label
     end
   end
 end

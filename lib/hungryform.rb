@@ -39,7 +39,7 @@ class HungryForm
   end
 
   def page(name, options = {}, &block)
-    page = Page.new(name, options, @resolver, &block)
+    page = Page.new(name, "", options, @resolver, &block)
     pages << page if page.visible?
   end
 

@@ -22,17 +22,20 @@ class HungryForm
   class BaseGroup < BaseElement
     attr_accessor :elements, :errors
 
-    def initialize(name, options = {}, resolver, &block)
+    def initialize(name, parent_name, options = {}, resolver, &block)
       raise HungryFormException, 'No group structure block given' unless block_given?
 
       super
+
+      self.name = parent_name.empty?? name : "#{parent_name}_#{name}"
       self.elements = []
       self.errors = {}
+
       instance_eval(&block)
     end
 
     def group(name, options = {}, &block)
-      elements << HungryForm::Group.new("#{self.name}_#{name}", options, @resolver, &block)
+      elements << HungryForm::Group.new(name, self.name, options, @resolver, &block)
     end
 
     def valid?
@@ -64,10 +67,12 @@ class HungryForm
       klass = HungryForm.constants.find {|c| Class === HungryForm.const_get(c) && c.to_s.underscore.to_sym == name}
       return super if klass.nil?
 
-      element = HungryForm::const_get(klass).send(:new, *(["#{self.name}_#{args[0]}", args[1..-1], @resolver].flatten), &block)
+      element = HungryForm::const_get(klass).send(:new, *([args[0], self.name, args[1..-1], @resolver].flatten), &block)
       elements << element
+
       #Resolver keeps a hash of all elements of the form
       @resolver.elements[element.name] = element
+
       element
     end
   end

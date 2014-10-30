@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe HungryForm::Resolver do
   describe ".get_value" do
-    let(:element) { HungryForm::Html.new(:html_name, { value: "value" }, resolver) {} }
+    let(:element) { HungryForm::Html.new(:html_name, "parent", { value: "value" }, resolver) {} }
     subject(:resolver) { HungryForm::Resolver.new }
 
     it "should get value from lambda param" do
@@ -12,7 +12,7 @@ describe HungryForm::Resolver do
 
     it "should get value from a form element" do
       subject.elements[element.name] = element
-      expect(subject.get_value(:html_name)).to eq "value"
+      expect(subject.get_value("parent_html_name")).to eq "value"
     end
 
     it "should get value that equals the name" do

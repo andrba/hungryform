@@ -1,6 +1,6 @@
 class HungryForm
   class Group < BaseGroup
-    def initialize(name, options = {}, resolver, &block)
+    def initialize(name, parent_name, options = {}, resolver, &block)
       super
       instance_eval(&block)
     end
