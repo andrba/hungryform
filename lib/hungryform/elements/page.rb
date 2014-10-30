@@ -4,7 +4,7 @@ class HungryForm
   # 
   # A sample page could look like this:
   #   page :about do
-  #     html :before, :value => "Please fill out the following fields"
+  #     html :before, "Please fill out the following fields"
   #     text_field :first_name
   #     text_field :last_name
   #   end
