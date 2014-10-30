@@ -5,15 +5,13 @@ RSpec.shared_examples "a group" do
 
   describe "#group" do
     it "creates a nested group" do
-      group_block = proc{}
-      group.group(:nested, {}, &group_block)
+      group.group(:nested, {}, &group_block) {}
 
       expect(group.elements.first.class).to eq HungryForm::Group
     end
 
     it "concatenates nested element's name with the parent's one" do
-      group_block = proc{}
-      group.group(:nested, {}, &group_block)
+      group.group(:nested, {}) {}
 
       expect(group.elements.first.name).to eq "name_nested"
     end
