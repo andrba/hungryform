@@ -2,7 +2,7 @@ class HungryForm
   class BaseElement < ::Hashie::Mash
     attr_accessor :name, :placeholders
 
-    def initialize(name, options = {}, resolver)
+    def initialize(name, options = {}, resolver, &block)
     	self.placeholders = {}
       self.name = resolver.get_value(name, self)
       @resolver = resolver
