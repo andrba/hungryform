@@ -1,7 +1,10 @@
 RSpec.shared_examples "an element" do
   let(:resolver) { HungryForm::Resolver.new() }
-  let(:options) { {} }
-  let(:element) { described_class.new(:element_name, "parent_name", options, resolver) {} }
+  
+  let(:group) { HungryForm::Group.new(:group, nil, resolver, {}) {} }
+
+  let(:element_options) { {} }
+  let(:element) { described_class.new(:element_name, group, resolver, element_options) {} }
 
   describe "#visible?" do
     it "should be visible" do
@@ -9,8 +12,26 @@ RSpec.shared_examples "an element" do
     end
 
     it "should not be visible" do
-      options[:visible] = false
+      element_options[:visible] = false
       expect(element.visible?).to eq false
+    end
+
+    context "when dependency is present" do
+      it "should not be visible" do
+        element_options[:dependency] = '{"EQ": ["0", "1"]}'
+        expect(element.visible?).to eq false
+      end
+
+      it "should never be visible" do
+        element_options[:visible] = false
+        element_options[:dependency] = '{"EQ": ["1", "1"]}'
+        expect(element.visible?).to eq false
+      end
+
+      it "should be visible" do
+        element_options[:dependency] = '{"EQ": ["1", "1"]}'
+        expect(element.visible?).to eq true
+      end
     end
   end
 
@@ -20,7 +41,7 @@ RSpec.shared_examples "an element" do
     end
 
     it "should have a label defined in options" do
-      options[:label] = "Special Label"
+      element_options[:label] = "Special Label"
       expect(element.label).to eq "Special Label"
     end
   end

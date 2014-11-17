@@ -11,22 +11,23 @@ require "hungryform/elements"
 # 
 # form = HungryForm.new :params => params do
 #   page :about_yourself do
-#     text_field :first_name, :required
-#     text_field :last_name, :required
+#     text_field :first_name, :required => true
+#     text_field :last_name, :required => true
 #     checkbox :dog, label: "Do you have a dog?"
 #   end
-#   page :about_your_dog, visible: '{"IS": "about_yourself_dog"}' do
+#   page :about_your_dog, visible: '{"SET": "about_yourself_dog"}' do
 #     text_field :name, :required
 #     text_area :what_can_it_do, label: "What can it do?"
 #   end
 # end
 # 
 # A form must contain only pages.
-# Whenever an error occurres inside the form it raises a HungryFormException
+# Whenever a specific form error occurres inside the form it raises a HungryFormException
 # 
 # When a new instance of a HungryForm is created, it uses options[:params] to
 # build a structure of itself. The pages with dependencies, that resolve during this
-# process will be included in the form.pages array. The rest of the pages will be ignored
+# process will be included in the form.pages array. Pages without dependencies will be allways resolved. 
+# The rest of the pages will be ignored
 class HungryForm
   HungryFormException = Class.new(StandardError)
 
@@ -39,8 +40,9 @@ class HungryForm
     instance_eval(&block)
   end
 
+  # Create a form page
   def page(name, options = {}, &block)
-    page = Page.new(name, "", options, @resolver, &block)
+    page = Page.new(name, nil, @resolver, options, &block)
     pages << page if page.visible?
   end
 

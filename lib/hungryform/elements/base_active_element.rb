@@ -2,10 +2,14 @@ class HungryForm
   class BaseActiveElement < BaseElement
   	attr_accessor :error
 
-    def initialize(name, parent_name, options = {}, resolver, &block)
+    def initialize(name, parent, resolver, options = {}, &block)
       super
       self.error = ''
-      @validation_rules = options.select { |key, val| HungryForm::Validator.method_defined?(key) }
+
+      # Filter only the options that are present in the HungryForm::Validator singleton class
+      @validation_rules = options.select { |key, val| HungryForm::Validator.respond_to?(key) }
+
+      self.required = false unless parent.visible?
     end
 
     def valid?
@@ -14,10 +18,9 @@ class HungryForm
     	return true if !visible?
 
     	is_valid = true
-    	# puts 
     	@validation_rules.each do |key, rule|
     		error = HungryForm::Validator.send(key, self, rule) || ''
-    		if error.any?
+    		unless error.empty?
     			is_valid = false
     			break
   			end

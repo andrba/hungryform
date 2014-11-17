@@ -19,7 +19,7 @@ class HungryForm
   class Page < BaseGroup
     attr_accessor :title
 
-    def initialize(name, parent_name, options = {}, resolver, &block)
+    def initialize(name, parent, resolver, options = {}, &block)
       super
       self.title = self.title || self.label
     end

@@ -22,12 +22,12 @@ class HungryForm
   class BaseGroup < BaseElement
     attr_accessor :elements, :errors
 
-    def initialize(name, parent_name, options = {}, resolver, &block)
+    def initialize(name, parent, resolver, options = {}, &block)
       raise HungryFormException, 'No group structure block given' unless block_given?
 
       super
 
-      self.name = parent_name.empty?? name : "#{parent_name}_#{name}"
+      self.name = parent.nil?? name : "#{parent.name}_#{name}"
       self.elements = []
       self.errors = {}
 
@@ -35,26 +35,27 @@ class HungryForm
     end
 
     def group(name, options = {}, &block)
-      elements << HungryForm::Group.new(name, self.name, options, @resolver, &block)
+      elements << HungryForm::Group.new(name, self, @resolver, options, &block)
     end
 
+    # Validates an entire group. If a group consists of nested groups
+    # they will be validated recursively
     def valid?
       errors.clear
       is_valid = true
+
       elements.each do |el|
-        case el
-        when BaseActiveElement
-          if el.invalid?
-            is_valid = false
+        if el.invalid?
+          is_valid = false
+          case el
+          when BaseActiveElement
             errors[el.name] = el.error
-          end
-        when BaseGroupObject
-          if el.invalid?
-            is_valid = false
+          when BaseGroupObject
             errors.merge!(el.errors)
           end
         end
       end
+
       is_valid
     end
 
@@ -67,7 +68,8 @@ class HungryForm
       klass = HungryForm.constants.find {|c| Class === HungryForm.const_get(c) && c.to_s.underscore.to_sym == name}
       return super if klass.nil?
 
-      element = HungryForm::const_get(klass).send(:new, *([args[0], self.name, args[1..-1], @resolver].flatten), &block)
+      # Create a new element based on a symbol provided and push it into the group elements array
+      element = HungryForm::const_get(klass).send(:new, *([args[0], self, @resolver, args[1..-1]].flatten), &block)
       elements << element
 
       #Resolver keeps a hash of all elements of the form

@@ -1,7 +1,10 @@
 RSpec.shared_examples "a group" do
   let(:resolver) { HungryForm::Resolver.new() }
-  let(:options) { {} }
-  let(:group) { described_class.new(:name, "parent_name", options, resolver) {} }
+  
+  let(:page) { described_class.new(:parent_name, nil, resolver, {}) {} }
+
+  let(:group_options) { {} }
+  let(:group) { described_class.new(:name, page, resolver, group_options) {} }
 
   it_behaves_like "an element"
 
