@@ -27,6 +27,24 @@ form = HungryForm.new do
 end
 ```
 
+To assign values to the form elements pass them as a hash on form initialization
+
+```ruby
+params = {
+  "first_first_name" => "John",
+  "first_last_name" => "Doe",
+  "second_address" => "John's address",
+  "third_occupation => "Software engineer",
+  "third_employment_history_history" => "John's employment hisotory"
+}
+
+form = HungryForm.new :params => params do
+...
+end
+
+```
+
+
 ## Validation
 
 Each active element of a form can be assigned with validation rules.
