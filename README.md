@@ -27,7 +27,7 @@ form = HungryForm.new do
 end
 ```
 
-To assign values to the form elements pass them as a hash on form initialization:
+To assign values to the form elements pass them as a hash on form initialization. The params hash must consist of elements names and their values. Please note, that the elements names must contain the full path to the element, starting from the page name.
 
 ```ruby
 params = {
@@ -49,7 +49,50 @@ You can assign default value to a form element:
 ```ruby
 text_field :email, value: "john.doe@yahoo.com"
 ```
+## Dependencies
 
+Each element of HungryForm, including pages and groups, can have a dependency parameter. This parameter must be a json string with an expression, that resolves to a boolean result. Within this expression you can use and combine the following operators:
+
+```json
+# val1 == val2
+{"EQ": ["val1", "val2"]}
+
+# val1 > val2
+{"GT": ["val1", "val2"]}
+
+# val1 < val2
+{"LT": ["val1", "val2"]}
+
+# val1 is not empty
+{"SET": "val1"}
+
+# Get the opposite result of the expression
+{"NOT": {"EQ": ["1", "1"]}}
+
+# Check if all the expressions are true
+{"AND": [
+  {"EQ": ["1", "1"]},
+  {"EQ": ["2", "2"]}
+]}
+
+# Check if any of the expressions is true
+{"OR": [
+  {"NOT": {"EQ": ["1", "1"]}},
+  {"EQ": ["2", "2"]}
+]}
+```
+
+If the dependency is resolved positively it makes the element visible. Otherwise the element will be hidden and not required.
+
+```ruby
+HungryForm.new do
+  page :about do
+    text_field :age
+    text_field :favourite_alcohol, required: true, visible: false, dependency: '{"GT": ["about_age", "18"]}'
+  end
+end
+    
+```
 
 ## Validation
 
