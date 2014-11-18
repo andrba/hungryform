@@ -2,7 +2,7 @@ class HungryForm
   # The class is responsible for dependency resolving.
   # It contains all form elements and params
   class Resolver
-    attr_accessor :elements
+    attr_accessor :elements, :params
 
     def initialize(options = {})
       @params = options[:params] || {}

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe HungryForm::Html do
-	it_behaves_like "an element"
+  it_behaves_like "an element"
 
   describe ".new" do
     let(:resolver) { HungryForm::Resolver.new() }

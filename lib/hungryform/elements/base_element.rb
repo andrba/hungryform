@@ -3,20 +3,22 @@ class HungryForm
     attr_accessor :name, :placeholders, :resolver
 
     def initialize(name, parent, resolver, options = {})
-    	self.placeholders ||= {}
+      self.placeholders ||= {}
       self.resolver = resolver
 
       super(options)
 
+      # The element is visible if no visible parameter passed or
+      # visible param equals true and the dependency is resolved positively
       self.visible = true unless self.key?(:visible)
       self.visible &&= resolver.resolve_dependency(::JSON.parse(self.dependency)) if self.key?(:dependency)
       self.name = (parent.nil?? "" : "#{parent.name}_") + resolver.get_value(name, self)
 
       if self.key?(:label)
-      	self.label = resolver.get_value(self.label, self)
-    	else
-    		self.label = resolver.get_value(name, self).humanize
-  		end
+        self.label = resolver.get_value(self.label, self)
+      else
+        self.label = resolver.get_value(name, self).humanize
+      end
     end
   end
 end

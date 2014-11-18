@@ -26,16 +26,11 @@ class HungryForm
       raise HungryFormException, 'No group structure block given' unless block_given?
 
       super
-
-      self.name = parent.nil?? name : "#{parent.name}_#{name}"
-      self.elements = []
-      self.errors = {}
+      
+      @elements = []
+      @errors = {}
 
       instance_eval(&block)
-    end
-
-    def group(name, options = {}, &block)
-      elements << HungryForm::Group.new(name, self, @resolver, options, &block)
     end
 
     # Validates an entire group. If a group consists of nested groups
@@ -69,7 +64,7 @@ class HungryForm
       return super if klass.nil?
 
       # Create a new element based on a symbol provided and push it into the group elements array
-      element = HungryForm::const_get(klass).send(:new, *([args[0], self, @resolver, args[1..-1]].flatten), &block)
+      element = HungryForm::const_get(klass).send(:new, args[0], self, @resolver, *(args[1..-1]), &block)
       elements << element
 
       #Resolver keeps a hash of all elements of the form

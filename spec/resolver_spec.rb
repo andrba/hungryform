@@ -4,7 +4,18 @@ describe HungryForm::Resolver do
   let(:resolver_params) { {:params => {}} }
   subject(:resolver) { HungryForm::Resolver.new(resolver_params) }
 
-  describe ".get_value" do
+  describe ".new" do
+    it "should initialize resolver empty params" do
+      expect(subject.params).to eq({})
+    end
+
+    it "should initialize resolver params" do
+      resolver_params[:params] = {"key" => "value"}
+      expect(subject.params).to eq({"key" => "value"})
+    end
+  end
+
+  describe "#get_value" do
     let(:element) { HungryForm::Html.new(:html_name, nil, resolver, { value: "value" }) {} }
 
     it "should get value from lambda param" do
@@ -27,7 +38,7 @@ describe HungryForm::Resolver do
     end
   end
 
-  describe ".resolve_dependency" do
+  describe "#resolve_dependency" do
     it "should resolve EQ dependency" do
       dependency = { "EQ" => ["Text", "Text"] }
       expect(subject.resolve_dependency(dependency)).to eq true

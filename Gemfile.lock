@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    hungryform (0.0.1)
+    hungryform (0.0.2)
       activesupport
-      hashie
+      hashie (~> 3.3)
 
 GEM
   remote: https://rubygems.org/
@@ -43,4 +43,4 @@ DEPENDENCIES
   bundler (~> 1.6)
   hungryform!
   rake
-  rspec
+  rspec (~> 3.0)

@@ -1,6 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext/string/inflections'
 require 'hashie'
+require 'json'
 require "hungryform/version"
 require "hungryform/resolver"
 require "hungryform/validator"
@@ -31,12 +32,14 @@ require "hungryform/elements"
 class HungryForm
   HungryFormException = Class.new(StandardError)
 
-  attr_reader :current_page, :pages
+  attr_reader :pages
 
   def initialize(options = {}, &block)
     raise HungryFormException, 'No form structure block given' unless block_given?
+
     @resolver = Resolver.new(options.slice(:params))
     @pages = []
+
     instance_eval(&block)
   end
 
@@ -49,6 +52,7 @@ class HungryForm
   # Entire form validation. Loops through the form pages and validates each page
   def valid?
     is_valid = true
+
     pages.each do |page|
       #Loop through pages to get all errors
       is_valid = false if page.invalid?
@@ -59,5 +63,21 @@ class HungryForm
 
   def invalid?
     !valid?
+  end
+
+  # Get all the elements that the form consists of
+  def elements
+    @resolver.elements
+  end
+
+  # Create a JSON string from the form elements (name => value)
+  def to_json
+    elements_hash = {}
+
+    self.elements.each do |name, el|
+      elements_hash[name] = el.value if el.is_a?(BaseActiveElement)
+    end
+    
+    ActiveSupport::JSON.encode(elements_hash)
   end
 end
