@@ -51,7 +51,7 @@ text_field :email, value: "john.doe@yahoo.com"
 ```
 ## Dependencies
 
-Each element of HungryForm, including pages and groups, can have a dependency parameter. This parameter must be a json string with an expression, that resolves to a boolean result. Within this expression you can use and combine the following operators:
+Each element of HungryForm, including pages and groups, can have a dependency parameter. This parameter must be a json string with an expression, that resolves to a boolean result. Within this expression you can use and combine the following operators, creating complex dependencies that can involve multiple elements:
 
 ```json
 # val1 == val2
