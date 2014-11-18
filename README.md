@@ -53,6 +53,23 @@ text_field :name, required: true
 text_field :email, validation: ->(el) { "is unexpected email" unless el.value == "me@yahoo.com"  }
 ```
 
+You can extend the list of validation rules by opening the HungryForm::Validator singleton class and creating your own validation methods:
+
+```ruby
+class HungryForm
+  class Validator
+    class << self
+      def my_validation_method(element, rule)
+        "is not #{rule}" unless element.value == rule
+      end
+    end
+  end
+end
+  
+  
+text_field :vegetable, value: "tomato", my_validation_method: "potato" # => is not potato
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/andrba/hungryform/fork )
