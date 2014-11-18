@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-```
+```ruby
 require 'hungryform'
 
 form = HungryForm.new do
