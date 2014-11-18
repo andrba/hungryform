@@ -82,7 +82,7 @@ Each element of HungryForm, including pages and groups, can have a dependency pa
 ]}
 ```
 
-If the dependency is resolved positively it makes the element visible. Otherwise the element will be hidden and not required.
+If the dependency is resolved positively it makes the element visible. Otherwise the element will be hidden and not required. It is allowed to use element names or params keys as parameters inside expressions.
 
 ```ruby
 HungryForm.new do
