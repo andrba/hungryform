@@ -1,12 +1,21 @@
 class HungryForm
   class Validator
     class << self
+      # Check if the element's value is not empty.
+      # The rule argument can be a boolean or a callable object
       def required(element, rule)
         if rule.respond_to? :call
-          return rule.call(element)
+          rule.call(element)
         else
-          return "is required" if element.value.to_s.empty? && rule
+          "is required" if element.value.to_s.empty? && rule
         end
+      end
+
+      # Custom validation check
+      # Use when you need to create a custom validation in the structure
+      def validation(element, callable)
+        raise HungryFormError "Validation must respond to call" unless callable.respond_to? :call
+        callable.call(element)
       end
     end
   end
