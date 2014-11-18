@@ -41,6 +41,18 @@ form = HungryForm.new do
 end
 ```
 
+## Validation
+
+Each active element of a form can be assigned with validation rules.
+
+- required - accepts boolean or proc
+- validation - accepts proc
+
+```ruby
+text_field :name, required: true
+text_field :email, validation: ->(el) { "is unexpected email" unless el.value == "me@yahoo.com"  }
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/andrba/hungryform/fork )
