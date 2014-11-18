@@ -2,20 +2,6 @@
 
 HungryForm is a gem for managing multiple page forms. The main purpose of this gem is to give developers an easy DSL to build complex forms.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'hungryform'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install hungryform
-
 ## Usage
 
 ```ruby
