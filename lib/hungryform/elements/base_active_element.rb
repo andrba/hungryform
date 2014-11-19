@@ -18,7 +18,7 @@ class HungryForm
         self.required = false 
       end
 
-      self.value = resolver.params.has_key?(self.name)? resolver.params[self.name] : options[:value]
+      set_value()
     end
 
     def valid?
@@ -39,6 +39,9 @@ class HungryForm
       is_valid
     end
 
+    def set_value
+      self.value = resolver.params.has_key?(self.name)? resolver.params[self.name] : @_options[:value]
+    end
     
   end
 end

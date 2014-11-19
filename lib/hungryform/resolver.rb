@@ -17,6 +17,7 @@ class HungryForm
     def get_value(name, element = nil)
       return name.call(element) if name.respond_to? :call
 
+      # We don't want to mess up elements names
       name = name.to_s.dup
       
       # Apply placeholders to the name.
@@ -60,7 +61,7 @@ class HungryForm
 
         arguments = [arguments] unless arguments.is_a?(Array)
 
-        arguments = arguments[0..1].map {|name| get_value(name)}
+        arguments = arguments[0..1].map { |name| get_value(name) }
         return false if arguments.any?{ |arg| arg.nil? }
 
         case operator

@@ -7,7 +7,7 @@ describe HungryForm do
         "first_first_name" => "John", 
         "first_last_name" => "Doe", 
         "second_email" => "john.doe@yahoo.com", 
-        "third_occupation" => "Software developer"
+        "third_occupation" => "programmer"
       } 
     } 
   end
