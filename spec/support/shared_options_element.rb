@@ -17,6 +17,11 @@ RSpec.shared_examples "an element with options" do
       expect { described_class.new(:element_name, group, resolver, options_element_options) }.to raise_error(HungryForm::HungryFormException)
     end
 
+    it "should have options" do
+      options_element_options[:options] = {"1" => "First", "2" => "Last"}
+      expect(element.options).to eq({"1" => "First", "2" => "Last"})
+    end
+
     it "should convert options to hash" do
       options_element_options[:options] = ->(el) {{"1" => "First", "2" => "Last"}}
       expect(element.options).to eq({"1" => "First", "2" => "Last"})
