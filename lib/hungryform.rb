@@ -1,7 +1,5 @@
-require 'active_support'
-require 'active_support/core_ext/string/inflections'
-require 'hashie'
 require 'json'
+require 'active_support/core_ext/string/inflections'
 require "hungryform/version"
 require "hungryform/resolver"
 require "hungryform/validator"
@@ -78,6 +76,6 @@ class HungryForm
       elements_hash[name] = el.value if el.is_a?(BaseActiveElement)
     end
     
-    ActiveSupport::JSON.encode(elements_hash)
+    JSON.generate(elements_hash)
   end
 end

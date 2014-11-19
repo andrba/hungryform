@@ -6,7 +6,9 @@ RSpec.shared_examples "a group" do
   let(:group_options) { {} }
   let(:group) { described_class.new(:name, page, resolver, group_options) {} }
 
-  it_behaves_like "an element"
+  it_behaves_like "an element" do
+    let(:element_options) { group_options }
+  end
 
   describe "#group" do
     it "creates a nested group" do

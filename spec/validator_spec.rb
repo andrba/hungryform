@@ -20,14 +20,14 @@ describe HungryForm::Validator do
 
     it "should return the result of the custom required validation" do
       element_options[:value] = "value"
-      expect(HungryForm::Validator.required(element, Proc.new{ |el| "not ok" if el.value != "custom" })).to eq "not ok"
+      expect(HungryForm::Validator.required(element, ->(el) { "not ok" if el.value != "custom" })).to eq "not ok"
     end
   end
 
   describe "validation" do
     it "should return the result of the custom validation" do
       element_options[:value] = "value"
-      expect(HungryForm::Validator.validation(element, Proc.new{ |el| "not ok" if el.value != "custom" })).to eq "not ok"
+      expect(HungryForm::Validator.validation(element, ->(el) { "not ok" if el.value != "custom" })).to eq "not ok"
     end
   end
 end

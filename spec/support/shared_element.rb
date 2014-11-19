@@ -3,7 +3,6 @@ RSpec.shared_examples "an element" do
   
   let(:group) { HungryForm::Group.new(:group, nil, resolver, {}) {} }
 
-  let(:element_options) { {} }
   let(:element) { described_class.new(:element_name, group, resolver, element_options) {} }
 
   describe "#visible?" do
@@ -22,12 +21,6 @@ RSpec.shared_examples "an element" do
         expect(element.visible?).to eq false
       end
 
-      it "should never be visible" do
-        element_options[:visible] = false
-        element_options[:dependency] = '{"EQ": ["1", "1"]}'
-        expect(element.visible?).to eq false
-      end
-
       it "should be visible" do
         element_options[:dependency] = '{"EQ": ["1", "1"]}'
         expect(element.visible?).to eq true
@@ -43,6 +36,19 @@ RSpec.shared_examples "an element" do
     it "should have a label defined in options" do
       element_options[:label] = "Special Label"
       expect(element.label).to eq "Special Label"
+    end
+  end
+
+  describe "#method_missing" do
+    it "should return existing param" do
+      element_options[:html_param] = "param"
+      expect(element.html_param).to eq "param"
+    end
+
+    it "should check whether param exists" do
+      element_options[:html_param] = "param"
+      expect(element.html_param?).to eq true
+      expect(element.other_html_param?).to eq false
     end
   end
 end

@@ -88,7 +88,7 @@ If the dependency is resolved positively it makes the element visible. Otherwise
 HungryForm.new do
   page :about do
     text_field :age
-    text_field :favourite_alcohol, required: true, visible: false, dependency: '{"GT": ["about_age", "18"]}'
+    text_field :favourite_alcohol, required: true, dependency: '{"GT": ["about_age", "18"]}'
   end
 end
     

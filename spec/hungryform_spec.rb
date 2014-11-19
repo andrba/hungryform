@@ -49,7 +49,7 @@ describe HungryForm do
   describe "#to_json" do
     it "should create a json string from the form objects" do
       form_elements_hash = options[:params].merge({"third_employment_history_history" => "Default value"})
-      expect(form.to_json).to eq(ActiveSupport::JSON.encode(form_elements_hash))
+      expect(form.to_json).to eq(JSON.generate(form_elements_hash))
     end
   end
 end

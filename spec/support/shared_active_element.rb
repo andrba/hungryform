@@ -5,10 +5,11 @@ RSpec.shared_examples "an active element" do
   let(:group_options) { {} }
   let(:group) { HungryForm::Group.new(:group, nil, resolver, group_options) {} }
 
-  let(:element_options) { {} }
-  let(:element) { described_class.new(:element_name, group, resolver, element_options) {} }
+  let(:element) { described_class.new(:element_name, group, resolver, active_element_options) {} }
 
-  it_behaves_like "an element"
+  it_behaves_like "an element" do
+    let(:element_options) { active_element_options }
+  end
 
   describe ".new" do
     it "should have empty error" do
@@ -17,7 +18,7 @@ RSpec.shared_examples "an active element" do
 
     it "should not be required if its parent is not visible" do
       group_options[:visible] = false
-      element_options[:required] = true
+      active_element_options[:required] = true
       expect(element.required?).to eq false
     end
 
@@ -31,7 +32,7 @@ RSpec.shared_examples "an active element" do
     end
 
     it "should have a value from element structure" do
-      element_options[:value] = "element_value"
+      active_element_options[:value] = "element_value"
       expect(element.value).to eq "element_value"
     end
   end
@@ -39,7 +40,7 @@ RSpec.shared_examples "an active element" do
   describe "#valid?" do
     describe "when required" do
       before(:each) do
-        element_options[:required] = true
+        active_element_options[:required] = true
       end
 
       it "is valid" do
