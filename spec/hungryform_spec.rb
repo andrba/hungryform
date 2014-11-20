@@ -22,7 +22,7 @@ describe HungryForm do
         text_field :email
       end
       page :third do 
-        dropdown :occupation, :options => {"programmer" => "Programmer", "other" => "Other"}
+        select_field :occupation, :options => {"programmer" => "Programmer", "other" => "Other"}
         group :employment_history do
           html :before, value: "Employment history over the last 5 years"
           text_field :history, value: "Default value"
