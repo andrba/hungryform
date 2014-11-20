@@ -123,6 +123,37 @@ end
 text_field :vegetable, value: "tomato", my_validation_method: "potato" # => is not potato
 ```
 
+## Custom form fields
+You can create your own field type by opening the HungryForm class. There are three base classes that you can choose to inherit from:
+
+- base_element - use this class when you don't need the field to have a value and validation. As an example it can be used for text output
+- base_active_element - use this class when you need the field to have a value and validation
+- base_options_element - this class inherits the base_active_element. Use it when you need to create an element with an options hash, like a dropdown
+
+```ruby
+class HungryForm
+  class MyField < BaseActiveElement
+    attr_accessor :my_param
+    
+    def initialize(name, parent, resolver, options = {}, &block)
+      self.my_param = options[:my_param] || true
+      
+      super
+    end
+    
+    def valid?
+      self.value == 'valid_value'
+    end
+  end
+end
+
+form = HungryForm.new do
+  page :main do
+    my_field :my_field_name, my_param: "Param Value"
+  end
+end
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/andrba/hungryform/fork )
