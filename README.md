@@ -5,8 +5,6 @@ HungryForm is a gem for managing multiple page forms. The main purpose of this g
 ## Usage
 
 ```ruby
-require 'hungryform'
-
 form = HungryForm.new do
   page :first do
     text_field :first_name
@@ -106,7 +104,7 @@ text_field :name, required: true
 text_field :email, validation: ->(el) { "is unexpected email" unless el.value == "me@yahoo.com"  }
 ```
 
-You can extend the list of validation rules by opening the HungryForm::Validator singleton class and creating your own validation methods:
+You can extend the list of validation rules by creating your own validation methods:
 
 ```ruby
 class HungryForm
