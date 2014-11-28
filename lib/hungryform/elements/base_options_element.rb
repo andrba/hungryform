@@ -4,8 +4,10 @@ class HungryForm
     attr_accessor :options
 
     def initialize(name, parent, resolver, options = {}, &block)
-      if options.has_key?(:options)
-        self.options = options[:options]
+      super
+
+      if @_options.has_key?(:options)
+        self.options = @_options[:options]
       else
         raise HungryFormException, "No options provided for #{name}"
       end
@@ -13,8 +15,6 @@ class HungryForm
       unless self.options.kind_of?(Hash)
         self.options = resolver.get_value(self.options, self)
       end
-
-      super
     end
 
     # Sets a value of the element

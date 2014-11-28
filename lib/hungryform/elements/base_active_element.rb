@@ -10,10 +10,10 @@ class HungryForm
       self.error = ''
 
       # Filter only the options that are present in the HungryForm::Validator singleton class
-      @validation_rules = options.select { |key, val| HungryForm::Validator.respond_to?(key) }
+      @validation_rules = @_options.select { |key, val| HungryForm::Validator.respond_to?(key) }
 
       if parent.visible?
-        self.required = options[:required] || false
+        self.required = @_options[:required] || false
       else
         self.required = false 
       end

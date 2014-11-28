@@ -4,7 +4,7 @@ class HungryForm
     alias_method :visible?, :visible
 
     def initialize(name, parent, resolver, options = {})
-      @_options = options
+      @_options = options.dup
 
       @placeholders ||= {}
       @resolver = resolver

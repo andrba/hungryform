@@ -4,8 +4,8 @@ class HungryForm
   	alias_method :multiple?, :multiple
 
   	def initialize(name, parent, resolver, options = {}, &block)
-  		self.multiple = options[:multiple] || false
   		super
+      self.multiple = @_options[:multiple] || false
 		end
 
 		# Sets a value of the element
