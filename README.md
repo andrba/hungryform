@@ -5,8 +5,6 @@ HungryForm is a gem for managing multiple page forms. The main purpose of this g
 ## Usage
 
 ```ruby
-require 'hungryform'
-
 form = HungryForm.new do
   page :first do
     text_field :first_name
