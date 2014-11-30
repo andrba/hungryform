@@ -21,7 +21,7 @@ class HungryForm
 
     def initialize(name, parent, resolver, options = {}, &block)
       super
-      self.title = self.title || self.label
+      self.title ||= label
     end
   end
 end

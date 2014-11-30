@@ -3,9 +3,9 @@ class HungryForm
 
     attr_accessor :options
 
-    def initialize(name, parent, resolver, options = {}, &block)
-      if options.has_key?(:options)
-        self.options = options[:options].dup
+    def initialize(name, parent, resolver, params = {}, &block)
+      if params.has_key?(:options)
+        self.options = params[:options].dup
       else
         raise HungryFormException, "No options provided for #{name}"
       end
@@ -20,8 +20,8 @@ class HungryForm
     # Sets a value of the element
     # Checks the value from the resolver params against the available options
     def set_value
-      if resolver.params.has_key?(self.name) && self.options.has_key?(resolver.params[self.name])
-        self.value = resolver.params[self.name]
+      if resolver.params.has_key?(name) && options.has_key?(resolver.params[name])
+        self.value = resolver.params[name]
       else
         self.value = @_options[:value]
       end

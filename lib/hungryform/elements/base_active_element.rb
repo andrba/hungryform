@@ -40,7 +40,7 @@ class HungryForm
     end
 
     def set_value
-      self.value = resolver.params.has_key?(self.name)? resolver.params[self.name] : @_options[:value]
+      self.value = resolver.params.has_key?(name)? resolver.params[name] : @_options[:value]
     end
     
   end
