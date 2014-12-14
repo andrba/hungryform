@@ -3,8 +3,8 @@ class HungryForm
   	attr_accessor :multiple
   	alias_method :multiple?, :multiple
 
-  	def initialize(name, parent, resolver, options = {}, &block)
-  		self.multiple = options[:multiple] || false
+  	def initialize(name, parent, resolver, attributes = {}, &block)
+  		self.multiple = attributes[:multiple] || false
       super
 		end
 
@@ -22,7 +22,7 @@ class HungryForm
 
       	self.value = resolver.params[name] if acceptable_values
       else
-        self.value = @_options[:value]
+        self.value = @attributes[:value]
       end
     end
   end

@@ -3,9 +3,9 @@ class HungryForm
 
     attr_accessor :options
 
-    def initialize(name, parent, resolver, params = {}, &block)
-      if params.has_key?(:options)
-        self.options = params[:options].dup
+    def initialize(name, parent, resolver, attributes = {}, &block)
+      if attributes.has_key?(:options)
+        self.options = attributes[:options].dup
       else
         raise HungryFormException, "No options provided for #{name}"
       end

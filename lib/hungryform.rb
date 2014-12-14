@@ -23,7 +23,7 @@ require "hungryform/elements"
 # A form must contain only pages.
 # Whenever a specific form error occurres inside the form it raises a HungryFormException
 # 
-# When a new instance of a HungryForm is created, it uses options[:params] to
+# When a new instance of a HungryForm is created, it uses attributes[:params] to
 # build a structure of itself. The pages with dependencies, that resolve during this
 # process will be included in the form.pages array. Pages without dependencies will be allways resolved. 
 # The rest of the pages will be ignored
@@ -32,18 +32,18 @@ class HungryForm
 
   attr_reader :pages
 
-  def initialize(options = {}, &block)
+  def initialize(attributes = {}, &block)
     raise HungryFormException, 'No form structure block given' unless block_given?
 
-    @resolver = Resolver.new(options.slice(:params))
+    @resolver = Resolver.new(attributes.slice(:params))
     @pages = []
 
     instance_eval(&block)
   end
 
   # Create a form page
-  def page(name, options = {}, &block)
-    page = Page.new(name, nil, @resolver, options, &block)
+  def page(name, attributes = {}, &block)
+    page = Page.new(name, nil, @resolver, attributes, &block)
     pages << page if page.visible?
   end
 

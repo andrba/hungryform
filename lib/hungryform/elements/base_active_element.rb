@@ -4,16 +4,16 @@ class HungryForm
     attr_accessor :error, :value, :required
     alias_method :required?, :required
 
-    def initialize(name, parent, resolver, options = {}, &block)
+    def initialize(name, parent, resolver, attributes = {}, &block)
       super
 
       self.error = ''
 
-      # Filter only the options that are present in the HungryForm::Validator singleton class
-      @validation_rules = @_options.select { |key, val| HungryForm::Validator.respond_to?(key) }
+      # Filter only the attributes that are present in the HungryForm::Validator singleton class
+      @validation_rules = @attributes.select { |key, val| HungryForm::Validator.respond_to?(key) }
 
       if parent.visible?
-        self.required = @_options[:required] || false
+        self.required = @attributes[:required] || false
       else
         self.required = false 
       end
@@ -40,7 +40,7 @@ class HungryForm
     end
 
     def set_value
-      self.value = resolver.params.has_key?(name)? resolver.params[name] : @_options[:value]
+      self.value = resolver.params.has_key?(name)? resolver.params[name] : @attributes[:value]
     end
     
   end

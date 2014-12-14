@@ -10,7 +10,7 @@ class HungryForm
   #   end
   # 
   # The only required argument of a page is its name.
-  # You can specify a title and a label in the options like this:
+  # You can specify a title and a label in the attributes like this:
   # 
   # page :about, title: "About me", label: "About"
   # 
@@ -19,7 +19,7 @@ class HungryForm
   class Page < BaseGroup
     attr_accessor :title
 
-    def initialize(name, parent, resolver, options = {}, &block)
+    def initialize(name, parent, resolver, attributes = {}, &block)
       super
       self.title ||= label
     end
