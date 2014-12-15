@@ -56,7 +56,7 @@ RSpec.shared_examples "an active element" do
   end
 
   describe "#to_hash" do
-    it "should return a hash" do
+    it "should include required, value and error" do
       expect(element.to_hash).to include(:required, :value, :error)
     end
   end

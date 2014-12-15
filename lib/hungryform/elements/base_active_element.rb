@@ -1,6 +1,5 @@
 class HungryForm
   class BaseActiveElement < BaseElement
-    
     attr_accessor :error, :value, :required
     alias_method :required?, :required
 
@@ -9,7 +8,7 @@ class HungryForm
     def initialize(name, parent, resolver, attributes = {}, &block)
       super
 
-      self.error = ''
+      clear_error()
 
       # Filter only the attributes that are present in the HungryForm::Validator singleton class
       @validation_rules = @attributes.select { |key, val| HungryForm::Validator.respond_to?(key) }
@@ -24,7 +23,7 @@ class HungryForm
     end
 
     def valid?
-      self.error = ''
+      clear_error()
 
       return true if !visible?
 
@@ -43,6 +42,10 @@ class HungryForm
 
     def set_value
       self.value = resolver.params.has_key?(name)? resolver.params[name] : @attributes[:value]
+    end
+
+    def clear_error
+      self.error = ''
     end
     
   end

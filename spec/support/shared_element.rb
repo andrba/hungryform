@@ -53,7 +53,7 @@ RSpec.shared_examples "an element" do
   end
 
   describe "#to_hash" do
-    it "should return a hash" do
+    it "should include visible, dependency, name and label" do
       expect(element.to_hash).to include(:visible, :dependency, :name, :label)
     end
   end

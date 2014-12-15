@@ -29,7 +29,7 @@ RSpec.shared_examples "an element with options" do
   end
 
   describe "#to_hash" do
-    it "should return a hash" do
+    it "should include options" do
       expect(element.to_hash).to include(:options)
     end
   end

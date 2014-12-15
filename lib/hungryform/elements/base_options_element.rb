@@ -1,6 +1,5 @@
 class HungryForm
   class BaseOptionsElement < BaseActiveElement
-
     attr_accessor :options
 
     hashable :options
