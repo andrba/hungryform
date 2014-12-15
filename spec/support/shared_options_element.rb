@@ -27,4 +27,10 @@ RSpec.shared_examples "an element with options" do
       expect(element.options).to eq({"1" => "First", "2" => "Last"})
     end
   end
+
+  describe "#to_hash" do
+    it "should return a hash" do
+      expect(element.to_hash).to include(:options)
+    end
+  end
 end

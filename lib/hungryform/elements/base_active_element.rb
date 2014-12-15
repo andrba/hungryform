@@ -4,6 +4,8 @@ class HungryForm
     attr_accessor :error, :value, :required
     alias_method :required?, :required
 
+    hashable :required, :value, :error
+
     def initialize(name, parent, resolver, attributes = {}, &block)
       super
 

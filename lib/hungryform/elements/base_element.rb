@@ -1,7 +1,10 @@
 class HungryForm
   class BaseElement
+    include HungryForm::Hashable
     attr_accessor :name, :placeholders, :resolver, :visible, :label, :dependency
     alias_method :visible?, :visible
+
+    hashable :visible, :dependency, :name, :label
 
     def initialize(name, parent, resolver, attributes = {})
       @attributes = attributes.dup
@@ -21,6 +24,12 @@ class HungryForm
       else
         self.label = resolver.get_value(@attributes[:label], self)
       end
+    end
+
+    def to_json
+      JSON.generate({
+        self.name => self.to_hash 
+      })
     end
 
     def method_missing(name, *args, &block)

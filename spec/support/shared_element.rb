@@ -51,4 +51,10 @@ RSpec.shared_examples "an element" do
       expect(element.other_html_param?).to eq false
     end
   end
+
+  describe "#to_hash" do
+    it "should return a hash" do
+      expect(element.to_hash).to include(:visible, :dependency, :name, :label)
+    end
+  end
 end

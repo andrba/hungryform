@@ -1,5 +1,6 @@
 require 'json'
 require 'active_support/core_ext/string/inflections'
+require 'active_support/core_ext/class/attribute'
 require "hungryform/version"
 require "hungryform/resolver"
 require "hungryform/validator"
@@ -68,7 +69,6 @@ class HungryForm
     @resolver.elements
   end
 
-  # Create a JSON string from the form elements (name => value)
   def to_json
     elements_hash = {}
 

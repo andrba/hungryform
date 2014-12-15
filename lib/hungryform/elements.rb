@@ -1,3 +1,4 @@
+require_relative 'elements/hashable'
 require_relative 'elements/base_element'
 require_relative 'elements/base_active_element'
 require_relative 'elements/base_options_element'

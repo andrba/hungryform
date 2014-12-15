@@ -3,6 +3,8 @@ class HungryForm
 
     attr_accessor :options
 
+    hashable :options
+
     def initialize(name, parent, resolver, attributes = {}, &block)
       if attributes.has_key?(:options)
         self.options = attributes[:options].dup
@@ -23,7 +25,7 @@ class HungryForm
       if resolver.params.has_key?(name) && options.has_key?(resolver.params[name])
         self.value = resolver.params[name]
       else
-        self.value = @_options[:value]
+        self.value = @attributes[:value]
       end
     end
   end
