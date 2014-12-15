@@ -60,9 +60,9 @@ class HungryForm
       !valid?
     end
 
-    def method_missing(name, *args, &block)
+    def method_missing(method_name, *args, &block)
       #Find a matching class
-      klass = HungryForm.constants.find {|c| Class === HungryForm.const_get(c) && c.to_s.underscore.to_sym == name}
+      klass = HungryForm.constants.find { |c| Class === HungryForm.const_get(c) && c.to_s.underscore.to_sym == method_name }
       return super if klass.nil?
 
       # Create a new element based on a symbol provided and push it into the group elements array
@@ -73,6 +73,10 @@ class HungryForm
       @resolver.elements[element.name] = element
 
       element
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      HungryForm.constants.any? { |c| Class === HungryForm.const_get(c) && c.to_s.underscore.to_sym == method_name } || super
     end
   end
 end

@@ -12,7 +12,7 @@ describe HungryForm::TextField do
 
   describe "#to_json" do
   	it "should return a json string" do
-  		expect(subject.to_json).to eq '{"group_element_name": {"visible": "true"}}'
+  		expect(subject.to_json).to eq '{"group_element_name":{"visible":true,"dependency":"","name":"group_element_name","label":"Element name","required":false,"error":"","_type":"TextField"}}'
 		end
 	end
 end

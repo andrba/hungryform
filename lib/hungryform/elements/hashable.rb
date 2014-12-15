@@ -22,7 +22,7 @@ class HungryForm
     end
 
     def to_hash
-      self.class.hashable_attributes.inject({}) { |hash, param| hash[param] = self.send(param) unless self.send(param).nil?; hash }
+      self.class.hashable_attributes.inject({}) { |hash, param| hash[param] = self.send(param) if self.send("#{param}?"); hash }
     end
 
     module ClassMethods
