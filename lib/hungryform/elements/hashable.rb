@@ -22,7 +22,8 @@ class HungryForm
     end
 
     def to_hash
-      self.class.hashable_attributes.inject({}) { |hash, param| hash[param] = self.send(param) if self.send("#{param}?"); hash }
+      hash = self.class.hashable_attributes.inject({}) { |hash, param| hash[param] = self.send(param) unless self.send(param).nil?; hash }
+      hash.merge({ :_type => self.class.name.demodulize })
     end
 
     module ClassMethods

@@ -26,18 +26,9 @@ class HungryForm
       end
     end
 
-    def to_json
-      JSON.generate({
-        self.name => self.to_hash.merge({ :_type => self.class.name.demodulize })
-      })
-    end
-
     def method_missing(method_name, *args, &block)
-      # Check if a method or an option exists
-      if method_name.to_s[-1] == '?'
-        signless_method_name = method_name.to_s[0..-2]
-        return respond_to?(signless_method_name) || @attributes.has_key?(signless_method_name)
-      end
+      # Check if an option exists
+      return @attributes.has_key?(method_name.to_s[0..-2].to_sym) if method_name.to_s[-1] == '?'
 
       # Return an attribute
       return @attributes[method_name] if @attributes.has_key?(method_name)

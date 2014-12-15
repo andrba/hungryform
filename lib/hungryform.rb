@@ -69,13 +69,11 @@ class HungryForm
     @resolver.elements
   end
 
-  def to_json
-    elements_hash = {}
+  def to_hash
+    { :pages => self.pages.map(&:to_hash) }
+  end
 
-    self.elements.each do |name, el|
-      elements_hash[name] = el.value if el.is_a?(BaseActiveElement)
-    end
-    
-    JSON.generate(elements_hash)
+  def to_json
+    JSON.generate(self.to_hash)
   end
 end

@@ -5,14 +5,13 @@ describe HungryForm::Html do
     let(:element_options) { {} }
   end
 
-  describe ".new" do
-    let(:resolver) { HungryForm::Resolver.new() }
-    let(:options) { {value: "body text"} }
-    subject { HungryForm::Html.new(:html, nil, resolver, options) {} }
+  let(:resolver) { HungryForm::Resolver.new() }
+  let(:options) { {value: "body text"} }
+  subject { HungryForm::Html.new(:html, nil, resolver, options) {} }
 
+  describe ".new" do
     it "should have a value" do
       expect(subject.value).to eq "body text"
     end
-
   end
 end

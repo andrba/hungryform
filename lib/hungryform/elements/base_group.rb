@@ -60,6 +60,10 @@ class HungryForm
       !valid?
     end
 
+    def to_hash
+      super.merge({ :elements => self.elements.map(&:to_hash) })
+    end
+
     def method_missing(method_name, *args, &block)
       #Find a matching class
       klass = HungryForm.constants.find { |c| Class === HungryForm.const_get(c) && c.to_s.underscore.to_sym == method_name }

@@ -16,7 +16,7 @@ describe HungryForm::SelectField do
 			}
 		} 
 	end
-  let(:element) { HungryForm::SelectField.new(:element_name, group, resolver, element_options) {} }
+  subject { HungryForm::SelectField.new(:element_name, group, resolver, element_options) {} }
 
 	it_behaves_like "an element with options" do
 		let(:options_element_options) do 
@@ -34,14 +34,14 @@ describe HungryForm::SelectField do
 			it "assigns multiple values" do
 				resolver_options[:params] = {"group_element_name" => ["1", "2", "3"]}
 				element_options[:multiple] = true
-				expect(element.value).to eq(["1", "2", "3"])
+				expect(subject.value).to eq(["1", "2", "3"])
 			end
 		end
 	end
 
 	describe "#to_hash" do
 		it "should include multiple" do
-			expect(element.to_hash).to include(:multiple)
+			expect(subject.to_hash).to include(:multiple)
 		end
 	end
 end
