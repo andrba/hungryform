@@ -54,6 +54,8 @@ RSpec.shared_examples "an element" do
 
   describe "#to_hash" do
     it "should include visible, dependency, name and label" do
+      element_options[:dependency] = '{"EQ": [1, 1]}'
+      element_options[:name] = 'name'
       expect(element.to_hash).to include(:visible, :dependency, :name, :label)
     end
   end

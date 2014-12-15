@@ -22,4 +22,10 @@ describe HungryForm::Page do
       expect(page.elements.first.class).to eq HungryForm::Group
     end
   end
+
+  describe "#to_hash" do
+    it "should include title" do
+      expect(page.to_hash).to include(:title)
+    end
+  end
 end

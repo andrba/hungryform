@@ -22,6 +22,8 @@ class HungryForm
   class BaseGroup < BaseElement
     attr_accessor :elements, :errors
 
+    hashable :elements
+
     def initialize(name, parent, resolver, attributes = {}, &block)
       raise HungryFormException, 'No group structure block given' unless block_given?
 

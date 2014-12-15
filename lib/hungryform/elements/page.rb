@@ -19,6 +19,8 @@ class HungryForm
   class Page < BaseGroup
     attr_accessor :title
 
+    hashable :title
+    
     def initialize(name, parent, resolver, attributes = {}, &block)
       super
       self.title ||= label

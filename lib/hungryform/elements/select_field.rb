@@ -3,6 +3,8 @@ class HungryForm
   	attr_accessor :multiple
   	alias_method :multiple?, :multiple
 
+    hashable :multiple
+
   	def initialize(name, parent, resolver, attributes = {}, &block)
   		self.multiple = attributes[:multiple] || false
       super

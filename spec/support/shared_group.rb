@@ -22,6 +22,12 @@ RSpec.shared_examples "a group" do
     end
   end
 
+  describe "#to_hash" do
+    it "should include group elements" do
+      expect(group.to_hash).to include(:elements)
+    end
+  end
+
   describe ".method_missing" do
     it "creates a nested element" do
       group.html(:name)

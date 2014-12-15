@@ -29,11 +29,19 @@ describe HungryForm::SelectField do
 		end
 	end
 
-	context "when multiple enabled" do
-		it "assigns multiple values" do
-			resolver_options[:params] = {"group_element_name" => ["1", "2", "3"]}
-			element_options[:multiple] = true
-			expect(element.value).to eq(["1", "2", "3"])
+	describe ".new" do
+		context "when multiple enabled" do
+			it "assigns multiple values" do
+				resolver_options[:params] = {"group_element_name" => ["1", "2", "3"]}
+				element_options[:multiple] = true
+				expect(element.value).to eq(["1", "2", "3"])
+			end
+		end
+	end
+
+	describe "#to_hash" do
+		it "should include multiple" do
+			expect(element.to_hash).to include(:multiple)
 		end
 	end
 end

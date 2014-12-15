@@ -57,6 +57,8 @@ RSpec.shared_examples "an active element" do
 
   describe "#to_hash" do
     it "should include required, value and error" do
+      active_element_options[:value] = ''
+      active_element_options[:required] = true
       expect(element.to_hash).to include(:required, :value, :error)
     end
   end
