@@ -1,5 +1,5 @@
 class HungryForm
-  class Validator
+  module Validator
     class << self
       # Check if the element's value is not empty.
       # The rule argument can be a boolean or a callable object
