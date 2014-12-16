@@ -1,4 +1,6 @@
 class HungryForm
-  class Group < BaseGroup
+  module Elements
+    class Group < Base::Group
+    end
   end
 end

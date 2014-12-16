@@ -16,7 +16,7 @@ describe HungryForm::Resolver do
   end
 
   describe "#get_value" do
-    let(:element) { HungryForm::Html.new(:html_name, nil, resolver, { value: "value" }) {} }
+    let(:element) { HungryForm::Elements::Html.new(:html_name, nil, resolver, { value: "value" }) {} }
 
     it "should get value from lambda param" do
       value = subject.get_value( ->(el){ "value" } )

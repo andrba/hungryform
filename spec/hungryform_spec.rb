@@ -42,7 +42,7 @@ describe HungryForm do
 
     it "should contain a page" do
       form.page(:page_name, {}) {}
-      expect(form.pages.first.class).to eq HungryForm::Page
+      expect(form.pages.first.class).to eq HungryForm::Elements::Page
     end
   end
 

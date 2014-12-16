@@ -1,7 +1,7 @@
 RSpec.shared_examples "an element" do
   let(:resolver) { HungryForm::Resolver.new() }
   
-  let(:group) { HungryForm::Group.new(:group, nil, resolver, {}) {} }
+  let(:group) { HungryForm::Elements::Group.new(:group, nil, resolver, {}) {} }
 
   let(:element) { described_class.new(:element_name, group, resolver, element_options) {} }
 

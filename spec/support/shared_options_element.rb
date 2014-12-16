@@ -3,7 +3,7 @@ RSpec.shared_examples "an element with options" do
   let(:resolver) { HungryForm::Resolver.new(resolver_options) }
   
   let(:group_options) { {} }
-  let(:group) { HungryForm::Group.new(:group, nil, resolver, group_options) {} }
+  let(:group) { HungryForm::Elements::Group.new(:group, nil, resolver, group_options) {} }
 
   let(:element) { described_class.new(:element_name, group, resolver, options_element_options) {} }
 

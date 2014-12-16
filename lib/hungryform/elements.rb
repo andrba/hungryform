@@ -1,8 +1,12 @@
-require_relative 'elements/hashable'
-require_relative 'elements/base_element'
-require_relative 'elements/base_active_element'
-require_relative 'elements/base_options_element'
-require_relative 'elements/base_group'
+class HungryForm
+  module Elements
+  end
+end
+require_relative 'elements/base/hashable'
+require_relative 'elements/base/element'
+require_relative 'elements/base/active_element'
+require_relative 'elements/base/options_element'
+require_relative 'elements/base/group'
 require_relative 'elements/page'
 require_relative 'elements/group'
 require_relative 'elements/html'

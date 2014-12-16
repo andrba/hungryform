@@ -2,10 +2,10 @@ require "spec_helper"
 
 describe HungryForm::Validator do
   let(:resolver) { HungryForm::Resolver.new() }
-  let(:group) { HungryForm::Group.new(:group, nil, resolver, {}) {} }
+  let(:group) { HungryForm::Elements::Group.new(:group, nil, resolver, {}) {} }
 
   let(:element_options) { {} }
-  let(:element) { HungryForm::TextField.new(:element_name, group, resolver, element_options) {} }
+  let(:element) { HungryForm::Elements::TextField.new(:element_name, group, resolver, element_options) {} }
 
   describe "required" do
     it "should return nil when the element's value is present" do

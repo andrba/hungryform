@@ -44,7 +44,7 @@ class HungryForm
 
   # Create a form page
   def page(name, attributes = {}, &block)
-    page = Page.new(name, nil, @resolver, attributes, &block)
+    page = Elements::Page.new(name, nil, @resolver, attributes, &block)
     pages << page if page.visible?
   end
 
