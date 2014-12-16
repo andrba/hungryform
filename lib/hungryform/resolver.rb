@@ -65,6 +65,8 @@ class HungryForm
 
     private
 
+    # Helper method to resolve AND or OR conditions.
+    # Walks through the arguments and resolves their dependencies.
     def resolve_multi_dependency(type, arguments)
       if arguments.size == 0
         fail HungryFormException, "No arguments for #{type.upcase} comparison: #{arguments}"

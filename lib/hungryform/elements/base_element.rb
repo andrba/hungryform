@@ -25,9 +25,11 @@ class HungryForm
         self.visible &&= resolver.resolve_dependency(json_dependency)
       end
 
+      # An element's name is prefixed with all parents names up to the page
       self.name = resolver.get_value(name, self)
       self.name = "#{parent.name}_#{name}" unless parent.nil?
 
+      # Label can be created from name if there is no label given
       if @attributes[:label]
         self.label = resolver.get_value(@attributes[:label], self)
       else

@@ -12,7 +12,7 @@ class HungryForm
 
       clear_error
 
-      # Filter only the attributes that are present in the HungryForm::Validator singleton class
+      # Leave only the attributes that are being methods of the HungryForm::Validator class
       @validation_rules = @attributes.select { |key, _| HungryForm::Validator.respond_to?(key) }
 
       if parent.visible?
