@@ -7,14 +7,17 @@ class HungryForm
         if rule.respond_to? :call
           rule.call(element)
         else
-          "is required" if element.value.to_s.empty? && rule
+          'is required' if element.value.to_s.empty? && rule
         end
       end
 
       # Custom validation check
       # Use when you need to create a custom validation in the structure
       def validation(element, callable)
-        raise HungryFormError "Validation must respond to call" unless callable.respond_to? :call
+        unless callable.respond_to? :call
+          fail HungryFormError 'Validation must respond to call'
+        end
+
         callable.call(element)
       end
     end

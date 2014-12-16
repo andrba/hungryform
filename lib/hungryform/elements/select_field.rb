@@ -13,8 +13,8 @@ class HungryForm
     # Sets a value of the element
     # Checks the value from the resolver params against the available options
     def set_value
-      if resolver.params.has_key?(name)
-        
+      if resolver.params.key?(name)
+
         # Check if all values present in the options
         if multiple?
           acceptable_values = (resolver.params[name] - options.keys).empty?

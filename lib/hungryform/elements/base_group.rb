@@ -1,10 +1,11 @@
 class HungryForm
   # A base group object is used to handle nested elements.
-  # Nested element can be a regular BaseElement or BaseActiveElement, as well as a BaseGroup element.
+  # Nested element can be a regular BaseElement or BaseActiveElement,
+  # as well as a BaseGroup element.
   # 
-  # The following sample has three BaseGroup elements (page, group and nested group) that define a structure
-  # of a single form page
-  # 
+  # The following sample has three BaseGroup elements (page, group and nested group)
+  # that define a structure of a single form page
+  #
   # page :about do
   #   group :about_yourself do
   #     html :about, value: "Tell us about yourself"
@@ -17,18 +18,18 @@ class HungryForm
   #     end
   #   end
   # end
-  # 
-  # Every group element except for a nested group is 
   class BaseGroup < BaseElement
     attr_accessor :elements, :errors
 
     hashable :elements
 
     def initialize(name, parent, resolver, attributes = {}, &block)
-      raise HungryFormException, 'No group structure block given' unless block_given?
+      unless block_given?
+        fail HungryFormException, 'No group structure block given'
+      end
 
       super
-      
+
       @elements = []
       @errors = {}
 
@@ -42,14 +43,14 @@ class HungryForm
       is_valid = true
 
       elements.each do |el|
-        if el.invalid?
-          is_valid = false
-          case el
-          when BaseActiveElement
-            errors[el.name] = el.error
-          when BaseGroupObject
-            errors.merge!(el.errors)
-          end
+        next if el.valid?
+
+        is_valid = false
+        case el
+        when BaseActiveElement
+          errors[el.name] = el.error
+        when BaseGroupObject
+          errors.merge!(el.errors)
         end
       end
 
@@ -61,19 +62,19 @@ class HungryForm
     end
 
     def to_hash
-      super.merge({ :elements => self.elements.map(&:to_hash) })
+      super.merge(elements: elements.map(&:to_hash))
     end
 
     def method_missing(method_name, *args, &block)
-      #Find a matching class
+      # Find a matching class
       klass = HungryForm.constants.find { |c| Class === HungryForm.const_get(c) && c.to_s.underscore.to_sym == method_name }
       return super if klass.nil?
 
       # Create a new element based on a symbol provided and push it into the group elements array
-      element = HungryForm::const_get(klass).send(:new, args[0], self, @resolver, *(args[1..-1]), &block)
+      element = HungryForm.const_get(klass).send(:new, args[0], self, @resolver, *(args[1..-1]), &block)
       elements << element
 
-      #Resolver keeps a hash of all elements of the form
+      # Resolver keeps a hash of all elements of the form
       @resolver.elements[element.name] = element
 
       element

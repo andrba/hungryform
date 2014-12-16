@@ -1,4 +1,6 @@
 class HungryForm
+  # The BaseActiveElement class is used as a base class for all
+  # form fields that can contain values and be validated
   class BaseActiveElement < BaseElement
     attr_accessor :error, :value, :required
     alias_method :required?, :required
@@ -8,26 +10,24 @@ class HungryForm
     def initialize(name, parent, resolver, attributes = {}, &block)
       super
 
-      clear_error()
+      clear_error
 
       # Filter only the attributes that are present in the HungryForm::Validator singleton class
-      @validation_rules = @attributes.select { |key, val| HungryForm::Validator.respond_to?(key) }
+      @validation_rules = @attributes.select { |key, _| HungryForm::Validator.respond_to?(key) }
 
       if parent.visible?
         self.required = @attributes[:required] || false
       else
-        self.required = false 
+        self.required = false
       end
 
-      set_value()
+      set_value
     end
 
     def valid?
-      clear_error()
-
-      return true if !visible?
-
+      clear_error
       is_valid = true
+      return true unless visible?
 
       @validation_rules.each do |key, rule|
         error = HungryForm::Validator.send(key, self, rule) || ''
@@ -41,12 +41,11 @@ class HungryForm
     end
 
     def set_value
-      self.value = resolver.params.has_key?(name)? resolver.params[name] : @attributes[:value]
+      self.value = resolver.params.key?(name) ? resolver.params[name] : @attributes[:value]
     end
 
     def clear_error
       self.error = ''
     end
-    
   end
 end

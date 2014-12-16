@@ -5,7 +5,7 @@ class HungryForm
 
     def initialize(name, parent, resolver, attributes = {}, &block)
       super
-      self.value = @attributes[:value] || ""
+      self.value = @attributes[:value] || ''
     end
   end
 end

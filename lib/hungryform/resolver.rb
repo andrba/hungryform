@@ -9,7 +9,7 @@ class HungryForm
       @elements = {}
     end
 
-    # Gets element value by element's name. 
+    # Gets element value by element's name.
     # If name is lambda - returns lambda's result
     # If name is present in the resolvers' elements hash - returns element's value
     # If name is present in the resolvers' params hash - returns params value
@@ -19,17 +19,15 @@ class HungryForm
 
       # We don't want to mess up elements names
       name = name.to_s.dup
-      
+
       # Apply placeholders to the name.
       # A sample name string can look like this: page1_group[GROUP_NUMBER]_field
       # where [GROUP_NUMBER] is a placeholder. When an element is present
       # we get its placeholders and replace substrings in the name argument
-      if element
-        element.placeholders.each { |k, v| name[k] &&= v }
-      end
+      element.placeholders.each { |k, v| name[k] &&= v } if element
 
-      return @elements[name].value if @elements.has_key?(name)
-      return @params[name] if @params.has_key?(name)
+      return @elements[name].value if @elements.key?(name)
+      return @params[name] if @params.key?(name)
 
       name
     end
@@ -40,21 +38,9 @@ class HungryForm
       dependency.each do |operator, arguments|
         case operator
         when 'AND'
-          raise HungryFormException, "No arguments for AND comparison: #{arguments}" if arguments.size == 0
-
-          arguments.each do |argument|
-            return false unless resolve_dependency(argument)
-          end
-
-          return true
+          return resolve_multi_dependency(:and, arguments)
         when 'OR'
-          raise HungryFormException, "No arguments for OR comparison: #{arguments}" if arguments.size == 0
-
-          arguments.each do |argument|
-            return true if resolve_dependency(argument)
-          end
-
-          return false
+          return resolve_multi_dependency(:or, arguments)
         when 'NOT'
           return !resolve_dependency(arguments)
         end
@@ -62,7 +48,7 @@ class HungryForm
         arguments = [arguments] unless arguments.is_a?(Array)
 
         arguments = arguments[0..1].map { |name| get_value(name) }
-        return false if arguments.any?{ |arg| arg.nil? }
+        return false if arguments.any?(&:nil?)
 
         case operator
         when 'EQ'
@@ -75,6 +61,22 @@ class HungryForm
           return !arguments[0].empty?
         end
       end
+    end
+
+    private
+
+    def resolve_multi_dependency(type, arguments)
+      if arguments.size == 0
+        fail HungryFormException, "No arguments for #{type.upcase} comparison: #{arguments}"
+      end
+
+      result = type == :and
+
+      arguments.each do |argument|
+        return !result unless resolve_dependency(argument)
+      end
+
+      result
     end
   end
 end

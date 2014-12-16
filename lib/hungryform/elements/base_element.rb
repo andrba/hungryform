@@ -1,4 +1,6 @@
 class HungryForm
+  # The BaseElement class is used in every form element. It contains the attrs
+  # and methods used by all form elements, such as name, visible, dependency etc
   class BaseElement
     include HungryForm::Hashable
     attr_accessor :name, :placeholders, :resolver, :visible, :label, :dependency
@@ -12,31 +14,40 @@ class HungryForm
       @placeholders ||= {}
       @resolver = resolver
 
+      self.dependency ||= @attributes[:dependency]
+
       # The element is visible if no visible parameter passed or
       # visible param equals true and the dependency is resolved positively
-      self.visible = @attributes.has_key?(:visible)? @attributes[:visible] : true
-      self.visible &&= resolver.resolve_dependency(::JSON.parse(@attributes[:dependency])) if @attributes[:dependency]
-      self.dependency = @attributes[:dependency] || ''
-      self.name = (parent.nil?? "" : "#{parent.name}_") + resolver.get_value(name, self)
+      self.visible = @attributes.key?(:visible) ? @attributes[:visible] : true
 
-      unless @attributes[:label]
-        self.label = resolver.get_value(name, self).humanize
-      else
+      if dependency
+        json_dependency = ::JSON.parse(dependency)
+        self.visible &&= resolver.resolve_dependency(json_dependency)
+      end
+
+      self.name = resolver.get_value(name, self)
+      self.name = "#{parent.name}_#{name}" unless parent.nil?
+
+      if @attributes[:label]
         self.label = resolver.get_value(@attributes[:label], self)
+      else
+        self.label = resolver.get_value(name, self).humanize
       end
     end
 
     def method_missing(method_name, *args, &block)
       # Check if an option exists
-      return @attributes.has_key?(method_name.to_s[0..-2].to_sym) if method_name.to_s[-1] == '?'
+      if method_name.to_s[-1] == '?'
+        return @attributes.key?(method_name.to_s[0..-2].to_sym)
+      end
 
       # Return an attribute
-      return @attributes[method_name] if @attributes.has_key?(method_name)
+      return @attributes[method_name] if @attributes.key?(method_name)
       super
     end
 
     def respond_to_missing?(method_name, include_private = false)
-      @attributes.has_key?(method_name) || super
+      @attributes.key?(method_name) || super
     end
   end
 end
