@@ -1,5 +1,7 @@
 # HungryForm
 
+[![Build Status](https://travis-ci.org/andrba/hungryform.svg?branch=master)](https://travis-ci.org/andrba/hungryform)
+
 HungryForm is a gem for managing multiple page forms. The main purpose of this gem is to give developers an easy DSL to build complex forms.
 
 ## Usage
