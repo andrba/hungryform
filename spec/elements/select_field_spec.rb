@@ -29,7 +29,7 @@ describe HungryForm::Elements::SelectField do
 		end
 	end
 
-	describe ".new" do
+	describe "#set_value" do
 		context "when multiple enabled" do
 			it "assigns multiple values" do
 				resolver_options[:params] = {"group_element_name" => ["1", "2", "3"]}
