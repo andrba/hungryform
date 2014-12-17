@@ -110,7 +110,7 @@ You can extend the list of validation rules by creating your own validation meth
 
 ```ruby
 class HungryForm
-  class Validator
+  module Validator
     class << self
       def my_validation_method(element, rule)
         "is not #{rule}" unless element.value == rule
@@ -124,25 +124,29 @@ text_field :vegetable, value: "tomato", my_validation_method: "potato" # => is n
 ```
 
 ## Custom form fields
-You can create your own field type by opening the HungryForm class. There are three base classes that you can choose to inherit from:
+You can create your own field type by adding a new class into the HungryForm::Elements module. There are three base classes that you can choose to inherit from:
 
-- base_element - use this class when you don't need the field to have a value and validation. As an example it can be used for text output
-- base_active_element - use this class when you need the field to have a value and validation
-- base_options_element - this class inherits the base_active_element. Use it when you need to create an element with an options hash, like a dropdown
+- Base::Element - use this class when you don't need the field to have a value and validation. As an example it can be used for text/html output
+- Base::ActiveElement - use this class when you need the field to have a value and validation
+- Base::OptionsElement - this class inherits the Base::ActiveElement. Use it when you need to create an element with an options hash, like a dropdown
 
 ```ruby
 class HungryForm
-  class MyField < BaseActiveElement
-    attr_accessor :my_param
-    
-    def initialize(name, parent, resolver, options = {}, &block)
-      self.my_param = options[:my_param] || true
+  module Elements
+    class MyField < Base::ActiveElement
+      attr_accessor :my_param
+
+      hashable :my_param
       
-      super
-    end
-    
-    def valid?
-      self.value == 'valid_value'
+      def initialize(name, parent, resolver, options = {}, &block)
+        self.my_param = options[:my_param] || true
+        
+        super
+      end
+      
+      def valid?
+        self.value == 'valid_value'
+      end
     end
   end
 end
