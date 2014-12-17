@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Elements::Base
     # The BaseOptionsElement class can be used as a base class for
     # fields with options, such as select or radio

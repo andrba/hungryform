@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   # The class is responsible for dependency resolving.
   # It contains all form elements and params
   class Resolver

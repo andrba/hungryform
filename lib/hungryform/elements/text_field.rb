@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Elements
     class TextField < Base::ActiveElement
     end

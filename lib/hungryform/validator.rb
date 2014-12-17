@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Validator
     class << self
       # Check if the element's value is not empty.

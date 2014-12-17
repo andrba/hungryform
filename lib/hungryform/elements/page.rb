@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Elements
     # Page is a main element of a form.
     # Each page can include a page structure, defined in the block

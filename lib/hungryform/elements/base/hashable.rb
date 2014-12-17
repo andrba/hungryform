@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Elements::Base
     # This module adds hashing capabilities to form elements.
     # Do not include this module in your classes. It is already

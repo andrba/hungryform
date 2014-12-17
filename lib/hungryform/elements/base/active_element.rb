@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Elements::Base
     # The ActiveElement class is used as a base class for all
     # form fields that can contain values and be validated

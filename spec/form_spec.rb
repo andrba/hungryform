@@ -13,7 +13,7 @@ describe HungryForm do
   end
 
   subject do
-    HungryForm.new(options) do
+    HungryForm::Form.new(options) do
       page :first do
         text_field :first_name
         text_field :last_name
@@ -38,7 +38,7 @@ describe HungryForm do
   end
 
   describe "#page" do 
-    subject(:form) { HungryForm.new() {} }
+    subject(:form) { HungryForm::Form.new() {} }
 
     it "should contain a page" do
       form.page(:page_name, {}) {}

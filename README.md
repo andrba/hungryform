@@ -7,7 +7,7 @@ HungryForm is a gem for managing multiple page forms. The main purpose of this g
 ## Usage
 
 ```ruby
-form = HungryForm.new do
+form = HungryForm::Form.new do
   page :first do
     text_field :first_name
     text_field :last_name
@@ -38,7 +38,7 @@ params = {
   "third_employment_history_history" => "John's employment hisotory"
 }
 
-form = HungryForm.new :params => params do
+form = HungryForm::Form.new :params => params do
 ...
 end
 
@@ -85,7 +85,7 @@ Each element of HungryForm, including pages and groups, can have a dependency pa
 If the dependency is resolved positively it makes the element visible. Otherwise the element will be hidden and not required. It is allowed to use element names or params keys as parameters inside expressions.
 
 ```ruby
-HungryForm.new do
+HungryForm::Form.new do
   page :about do
     text_field :age
     text_field :favourite_alcohol, required: true, dependency: '{"GT": ["about_age", "18"]}'
@@ -109,7 +109,7 @@ text_field :email, validation: ->(el) { "is unexpected email" unless el.value ==
 You can extend the list of validation rules by creating your own validation methods:
 
 ```ruby
-class HungryForm
+module HungryForm
   module Validator
     class << self
       def my_validation_method(element, rule)
@@ -131,7 +131,7 @@ You can create your own field type by adding a new class into the HungryForm::El
 - Base::OptionsElement - this class inherits the Base::ActiveElement. Use it when you need to create an element with an options hash, like a dropdown
 
 ```ruby
-class HungryForm
+module HungryForm
   module Elements
     class MyField < Base::ActiveElement
       attr_accessor :my_param
@@ -151,7 +151,7 @@ class HungryForm
   end
 end
 
-form = HungryForm.new do
+form = HungryForm::Form.new do
   page :main do
     my_field :my_field_name, my_param: "Param Value"
   end

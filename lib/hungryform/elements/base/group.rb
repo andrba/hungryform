@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Elements::Base
     # A base group object is used to handle nested elements.
     # Nested element can be a regular BaseElement or BaseActiveElement,

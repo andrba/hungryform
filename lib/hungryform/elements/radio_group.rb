@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Elements
     class RadioGroup < Base::OptionsElement
       # Sets a value of the element

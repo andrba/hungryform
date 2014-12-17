@@ -1,4 +1,4 @@
-class HungryForm
+module HungryForm
   module Elements::Base
     # The Element class is used in every form element. It contains the attrs
     # and methods used by all form elements, such as name, visible, dependency etc
