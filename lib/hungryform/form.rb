@@ -6,34 +6,38 @@ require 'hungryform/resolver'
 require 'hungryform/validator'
 require 'hungryform/elements'
 
-# HungryForm is an object that manages form creation and validation.
-# A sample object could look like this:
-#
-# form = HungryForm::Form.new :params => params do
-#   page :about_yourself do
-#     text_field :first_name, :required => true
-#     text_field :last_name, :required => true
-#     checkbox :dog, label: "Do you have a dog?"
-#   end
-#   page :about_your_dog, visible: '{"SET": "about_yourself_dog"}' do
-#     text_field :name, :required
-#     text_area :what_can_it_do, label: "What can it do?"
-#   end
-# end
-#
-# A form must contain only pages.
-# Whenever a specific form error occurres inside the form it raises a HungryFormException
-#
-# When a new instance of a HungryForm is created, it uses attributes[:params] to
-# build a structure of itself. The pages with dependencies, that resolve during this
-# process will be included in the form.pages array. Pages without dependencies will be allways resolved. 
-# The rest of the pages will be ignored
 module HungryForm
+  # HungryForm is an object that manages form creation and validation.
+  # A sample object could look like this:
+  #
+  # form = HungryForm::Form.new :params => params do
+  #   page :about_yourself do
+  #     text_field :first_name, :required => true
+  #     text_field :last_name, :required => true
+  #     checkbox :dog, label: "Do you have a dog?"
+  #   end
+  #   page :about_your_dog, visible: '{"SET": "about_yourself_dog"}' do
+  #     text_field :name, :required
+  #     text_area :what_can_it_do, label: "What can it do?"
+  #   end
+  # end
+  #
+  # A form must contain only pages.
+  # Whenever a specific form error occurres inside the form it
+  # raises a HungryFormException
+  #
+  # When a new instance of a HungryForm::Form is created, it uses
+  # attributes[:params] to build a structure of itself. The pages
+  # with dependencies, that resolve during this process will be included
+  # in the form.pages array. Pages without dependencies will be allways
+  # resolved. The rest of the pages will be ignored.
   class Form
     attr_reader :pages
 
     def initialize(attributes = {}, &block)
-      fail HungryFormException, 'No form structure block given' unless block_given?
+      unless block_given?
+        fail HungryFormException, 'No form structure block given'
+      end
 
       @resolver = Resolver.new(attributes.slice(:params))
       @pages = []
@@ -47,7 +51,8 @@ module HungryForm
       pages << page if page.visible?
     end
 
-    # Entire form validation. Loops through the form pages and validates each page
+    # Entire form validation. Loops through the form pages and
+    # validates each page individually.
     def valid?
       is_valid = true
 
@@ -68,6 +73,8 @@ module HungryForm
       @resolver.elements
     end
 
+    # Get an entire hash of the form, including every element
+    # on every visible page
     def to_hash
       { pages: pages.map(&:to_hash) }
     end
