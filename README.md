@@ -9,19 +9,20 @@ HungryForm is a gem for managing multiple page forms. The main purpose of this g
 ```ruby
 form = HungryForm::Form.new do
   page :first do
-    text_field :first_name
-    text_field :last_name
+    text_field :first_name, required: true
+    text_field :last_name, required: true
   end
   page :second, do 
     text_field :address
+    select_field :gender, options: { "M" => "Male", "F" => "Female" }, required: true
   end
   page :third do 
     text_field :occupation
     
     # Show this group only when the occupation field is not empty
-    group :employment_history, visible: false, dependency: '{"SET": "third_occupation"}' do
+    group :employment_history, dependency: '{"SET": "third_occupation"}' do
       html :before, value: "Employment history over the last 5 years"
-      text_field :history, value: "Default value"
+      text_area :history, value: "Default value"
     end
   end 
 end
