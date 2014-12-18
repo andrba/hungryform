@@ -1,0 +1,7 @@
+gemfile:
+  - gemfiles/rails3.2.gemfile
+  - gemfiles/rails4.0.gemfile
+  - gemfiles/rails4.1.gemfile
+language:
+  - ruby
+script: 'bundle exec rake test'
