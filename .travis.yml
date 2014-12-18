@@ -2,8 +2,6 @@ gemfile:
   - gemfiles/rails3.2.gemfile
   - gemfiles/rails4.0.gemfile
   - gemfiles/rails4.1.gemfile
-install:
-  - 'travis_retry bundle install'
 language:
   - ruby
-script: 'bundle exec rake spec'
+script: 'bundle exec rake test'
