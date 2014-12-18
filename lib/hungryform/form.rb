@@ -39,7 +39,7 @@ module HungryForm
         fail HungryFormException, 'No form structure block given'
       end
 
-      @resolver = Resolver.new(attributes.slice(:params))
+      @resolver = Resolver.new(attributes.delete(:params) || {})
       @pages = []
 
       instance_eval(&block)
