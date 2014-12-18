@@ -1,32 +1,24 @@
-require 'rubygems'
-require 'bundler/gem_tasks'
-require 'rspec/core/rake_task'
+# encoding: utf-8
 
+require 'rubygems'
+require 'bundler/setup'
+require 'bundler/gem_tasks'
+
+require 'rake'
+require 'rspec/core/rake_task'
+require 'appraisal'
 
 RSpec::Core::RakeTask.new(:spec)
 
-task :default => "spec:all"
-
-namespace :spec do
-  mappers = %w(
-    rails41
-    rails40
-    rails32
-  )
-
-  mappers.each do |gemfile|
-    desc "Run Tests against #{gemfile}"
-    task gemfile do
-      sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle --quiet"
-      sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle exec rake -t spec"
-    end
+desc 'Default'
+task :default do
+  if ENV['BUNDLE_GEMFILE'] =~ /gemfiles/
+    Rake::Task['spec'].invoke
+  else
+    Rake::Task['appraise'].invoke
   end
+end
 
-  desc "Run Tests against all ORMs"
-  task :all do
-    mappers.each do |gemfile|
-      sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle --quiet"
-      sh "BUNDLE_GEMFILE='gemfiles/#{gemfile}.gemfile' bundle exec rake spec"
-    end
-  end
+task :appraise do
+  exec 'appraisal install && appraisal rake'
 end
