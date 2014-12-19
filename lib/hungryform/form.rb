@@ -90,19 +90,15 @@ module HungryForm
     end
 
     def next_page
-      @pages.each_cons(2) do |page, next_page|
+      pages.each_cons(2) do |page, next_page|
         return next_page if page == @current_page
       end
-
-      nil
     end
 
     def prev_page
-      @pages.each_cons(2) do |prev_page, page|
+      pages.each_cons(2) do |prev_page, page|
         return prev_page if page == @current_page
       end
-
-      nil
     end
   end
 end
