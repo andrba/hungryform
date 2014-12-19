@@ -39,10 +39,16 @@ module HungryForm
         fail HungryFormException, 'No form structure block given'
       end
 
-      @resolver = Resolver.new(attributes.delete(:params) || {})
+      @resolver = Resolver.new(attributes.slice(:params))
       @pages = []
 
       instance_eval(&block)
+
+      if @resolver.params[:page]
+        @current_page = pages.find { |p| p.name.to_s == @resolver.params[:page] }
+      end
+
+      @current_page ||= pages.first
     end
 
     # Create a form page
@@ -81,6 +87,22 @@ module HungryForm
 
     def to_json
       JSON.generate(to_hash)
+    end
+
+    def next_page
+      @pages.each_cons(2) do |page, next_page|
+        return next_page if page == @current_page
+      end
+
+      nil
+    end
+
+    def prev_page
+      @pages.each_cons(2) do |prev_page, page|
+        return prev_page if page == @current_page
+      end
+
+      nil
     end
   end
 end

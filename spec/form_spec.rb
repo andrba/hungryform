@@ -53,4 +53,29 @@ describe HungryForm do
       expect(hash["pages"].first["elements"].size).to eq 2
     end
   end
+
+  describe "#next_page" do
+    it "should return the next page" do
+      options[:params][:page] = "first"
+      expect(subject.next_page).to eq subject.pages[1]
+    end
+
+    it "should return nil if there is no next page" do
+      options[:params][:page] = "third"
+      expect(subject.next_page).to be_nil
+    end
+  end
+
+  describe "#prev_page" do
+    it "should return the previous page" do
+      options[:params][:page] = "third"
+      expect(subject.prev_page).to eq subject.pages.first
+    end
+
+    it "should return nil if there is no previous page" do
+      options[:params][:page] = "first"
+      expect(subject.prev_page).to be_nil
+    end
+  end
+
 end

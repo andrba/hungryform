@@ -5,8 +5,8 @@ module HungryForm
     attr_accessor :elements, :params
 
     def initialize(options = {})
-      @params = options[:params] || {}
-      @elements = {}
+      self.params = options[:params] || {}
+      self.elements = {}
     end
 
     # Gets element value by element's name.
