@@ -32,7 +32,7 @@ module HungryForm
   # in the form.pages array. Pages without dependencies will be allways
   # resolved. The rest of the pages will be ignored.
   class Form
-    attr_reader :pages
+    attr_reader :pages, :current_page
 
     def initialize(attributes = {}, &block)
       unless block_given?

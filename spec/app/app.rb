@@ -13,6 +13,7 @@ app.initialize!
 
 # routes
 app.routes.draw do
+  resources :hungryform
 end
 
 # helpers
