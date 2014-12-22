@@ -2,6 +2,13 @@ module HungryForm
   module ActionView
     def hungry_form_for(form, options={})
       params = options.delete(:params) || {}
+      params[:page] = form.current_page.name
+
+      views_prefix = options.delete(:views_prefix) || 'hungryform'
+
+      form_tag(url_for(params), options) do
+        render partial: "#{views_prefix}/form", locals: { form: form, views_prefix: views_prefix }
+      end
     end
 
     def hungry_link_to_next_page(form, name, options={}, &block)
