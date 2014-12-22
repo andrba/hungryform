@@ -1,6 +1,4 @@
-# HungryForm
-
-[![Build Status](https://travis-ci.org/andrba/hungryform.svg?branch=master)](https://travis-ci.org/andrba/hungryform)
+# HungryForm [![Build Status](https://travis-ci.org/andrba/hungryform.svg?branch=master)](https://travis-ci.org/andrba/hungryform) [![Code Climate](https://codeclimate.com/github/andrba/hungryform/badges/gpa.svg)](https://codeclimate.com/github/andrba/hungryform)
 
 HungryForm is a gem for managing multiple page forms. The main purpose of this gem is to give developers an easy DSL to build complex forms.
 
@@ -36,7 +34,7 @@ params = {
   "first_last_name" => "Doe",
   "second_address" => "John's address",
   "third_occupation" => "Software engineer",
-  "third_employment_history_history" => "John's employment hisotory"
+  "third_employment_history_history" => "John's employment history"
 }
 
 form = HungryForm::Form.new :params => params do
