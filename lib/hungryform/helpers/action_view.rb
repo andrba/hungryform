@@ -1,7 +1,7 @@
 module HungryForm
   module ActionView
     def hungry_form_for(form, options={})
-      params = options.delete(:params) || {}
+      params = self.params.merge(options.delete(:params) || {})
       params[:page] = form.current_page.name
 
       views_prefix = options.delete(:views_prefix) || 'hungryform'
@@ -12,7 +12,7 @@ module HungryForm
     end
 
     def hungry_link_to_next_page(form, name, options={}, &block)
-      params = options.delete(:params) || {}
+      params = self.params.merge(options.delete(:params) || {})
       method = params[:method] || 'get'
 
       if method.to_s == 'get'
@@ -27,7 +27,7 @@ module HungryForm
     end
 
     def hungry_link_to_prev_page(form, name, options={}, &block)
-      params = options.delete(:params) || {}
+      params = self.params.merge(options.delete(:params) || {})
       method = params[:method] || 'get'
 
       if method.to_s == 'get'
@@ -42,7 +42,7 @@ module HungryForm
     end
 
     def hungry_link_to_page(form, page, name, options={}, &block)
-      params = options.delete(:params) || {}
+      params = self.params.merge(options.delete(:params) || {})
       method = params[:method] || 'get'
 
       params[:page] = method.to_s == 'get' ? page.name : form.current_page.name

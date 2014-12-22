@@ -5,3 +5,6 @@
 <% form.current_page.elements.each do |el| %>
   <%= render partial: "#{views_prefix}/#{el.class.name.demodulize.underscore}", locals: { field: el, views_prefix: views_prefix } %>
 <% end %>
+
+<%= hungry_link_to_prev_page(form, "Prev") %>
+<%= hungry_link_to_next_page(form, "Next") %>

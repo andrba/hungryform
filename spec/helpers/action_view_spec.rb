@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
+  let(:form_params) { {} }
   let(:form) do 
     HungryForm::Form.new params: form_params do
       page :first do
@@ -14,9 +15,10 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
     end
   end
 
+  before { helper.params.merge!(controller: 'hungryform', action: 'show') }
+
   describe '#hungry_link_to_next_page' do
-    let(:form_params) { {} }
-    let(:params) { { controller: 'hungryform', action: 'show' } }
+    let(:params) { {} }
     subject { helper.hungry_link_to_next_page(form, "Next", params: params) }
 
     context 'when method is GET' do
@@ -48,7 +50,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
 
   describe '#hungry_link_to_prev_page' do
     let(:form_params) { { page: 'second' } }
-    let(:params) { { controller: 'hungryform', action: 'show' } }
+    let(:params) { {} }
     subject { helper.hungry_link_to_prev_page(form, "Next", params: params) }
 
     context 'when method is GET' do
@@ -79,8 +81,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
   end
 
   describe '#hungry_link_to_page' do
-    let(:form_params) { {} }
-    let(:params) { { controller: 'hungryform', action: 'show' } }
+    let(:params) { {} }
     subject { helper.hungry_link_to_page(form, form.pages.last, form.pages.last.label, params: params) }
 
     context 'when method is GET' do
@@ -97,15 +98,14 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
   end
 
   describe '#hungry_form_for' do
-    let(:form_params) { {} }
-    let(:params) { { controller: 'hungryform', action: 'show' } }
-    subject { helper.hungry_form_for(form, params: params) }
+    subject { helper.hungry_form_for(form) }
 
     it 'renders a form' do
       expect(subject).to include('<form')
       expect(subject).to include('name="action"') #Mandatory hidden action field
       expect(subject).to include('First name')
       expect(subject).to include('Last name')
+      expect(subject).to include('Next')
     end
 
     it 'renders only a current page' do
