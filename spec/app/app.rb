@@ -13,8 +13,10 @@ app.initialize!
 
 # routes
 app.routes.draw do
-  resources :hungryform
+  get 'hungryform/:page' => 'hungryform#show'
+  post 'hungryform/:page' => 'hungryform#update'
 end
 
 # helpers
 Object.const_set(:ApplicationHelper, Module.new)
+ApplicationHelper.include Rails.application.routes.url_helpers
