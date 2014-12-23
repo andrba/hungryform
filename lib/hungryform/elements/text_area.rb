@@ -1,6 +1,6 @@
 module HungryForm
   module Elements
-    class TextAreaField < Base::ActiveElement
+    class TextArea < Base::ActiveElement
     end
   end
 end

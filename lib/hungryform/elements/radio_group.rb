@@ -9,7 +9,7 @@ module HungryForm
             self.value = resolver.params[name]
           end
         else
-          self.value = @attributes.delete(:value)
+          self.value = attributes.delete(:value)
         end
       end
     end

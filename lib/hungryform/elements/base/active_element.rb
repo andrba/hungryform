@@ -49,7 +49,7 @@ module HungryForm
         end
 
         def set_value
-          self.value = resolver.params.key?(name) ? resolver.params[name] : @attributes.delete(:value)
+          self.value = resolver.params.key?(name) ? resolver.params[name] : attributes.delete(:value)
         end
 
         def clear_error

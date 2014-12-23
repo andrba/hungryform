@@ -17,7 +17,9 @@ if defined? Rails
   end
 end
 
-Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
+Dir['./spec/support/**/*.rb'].each { |f| require f }
+Dir['./spec/elements/shared_examples/**/*.rb'].each { |f| require f }
+Dir['./spec/views/shared_examples/**/*.rb'].each { |f| require f }
 
 RSpec.configure do |config|
   config.order = :random

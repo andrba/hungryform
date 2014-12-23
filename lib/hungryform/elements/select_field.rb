@@ -15,7 +15,7 @@ module HungryForm
 
           self.value = resolver.params[name] if acceptable_values
         else
-          self.value = @attributes.delete(:value)
+          self.value = attributes.delete(:value)
         end
       end
     end

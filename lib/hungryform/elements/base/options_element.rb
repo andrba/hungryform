@@ -10,7 +10,7 @@ module HungryForm
 
         def initialize(name, parent, resolver, attributes = {}, &block)
           if attributes.key?(:options)
-            self.options = attributes.delete(:options).dup
+            self.options = attributes.delete(:options)
           else
             fail HungryFormException, "No options provided for #{name}"
           end
@@ -28,7 +28,7 @@ module HungryForm
           if resolver.params.key?(name) && options.key?(resolver.params[name])
             self.value = resolver.params[name]
           else
-            self.value = @attributes.delete(:value)
+            self.value = attributes.delete(:value)
           end
         end
       end
