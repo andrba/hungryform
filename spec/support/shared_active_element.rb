@@ -38,7 +38,7 @@ RSpec.shared_examples "an active element" do
   end
 
   describe "#valid?" do
-    describe "when required" do
+    context "when required" do
       before(:each) do
         active_element_options[:required] = true
       end
@@ -46,11 +46,13 @@ RSpec.shared_examples "an active element" do
       it "is valid" do
         element.value = "value"
         expect(element.valid?).to eq true
+        expect(element.error).to eq ''
       end
 
       it "is invalid" do
-        element.value = ""
+        element.value = ''
         expect(element.valid?).to eq false
+        expect(element.error).to eq 'This field is required'
       end
     end
   end

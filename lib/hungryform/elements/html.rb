@@ -6,7 +6,7 @@ module HungryForm
 
       def initialize(name, parent, resolver, attributes = {}, &block)
         super
-        self.value = @attributes[:value] || ''
+        self.value = @attributes.delete(:value) || ''
       end
     end
   end

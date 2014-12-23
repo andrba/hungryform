@@ -39,18 +39,18 @@ RSpec.shared_examples "an element" do
     end
   end
 
-  describe "#method_missing" do
-    it "should return existing param" do
-      element_options[:html_param] = "param"
-      expect(element.html_param).to eq "param"
-    end
+  # describe "#method_missing" do
+  #   it "should return existing param" do
+  #     element_options[:html_param] = "param"
+  #     expect(element.html_param).to eq "param"
+  #   end
 
-    it "should check whether param exists" do
-      element_options[:html_param] = "param"
-      expect(element.html_param?).to eq true
-      expect(element.other_html_param?).to eq false
-    end
-  end
+  #   it "should check whether param exists" do
+  #     element_options[:html_param] = "param"
+  #     expect(element.html_param?).to eq true
+  #     expect(element.other_html_param?).to eq false
+  #   end
+  # end
 
   describe "#to_hash" do
     it "should include visible, dependency, name and label" do

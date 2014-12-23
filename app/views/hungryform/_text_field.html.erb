@@ -1,2 +1,5 @@
-<%= label_tag field.name, field.label %>
-<%= text_field_tag field.name, field.value %>
+<%= content_tag :div, class: field.html_class, 'data-dependency' => (field.dependency if field.dependency) do %>
+  <%= label_tag field.name, field.label << ("*" if field.required?).to_s %>
+  <%= text_field_tag field.name, field.value, field.attributes %>
+  <% if field.error -%><span class="error"><%= field.error %></span><% end -%>
+<% end %>

@@ -26,8 +26,8 @@ module HungryForm
       # we get its placeholders and replace substrings in the name argument
       element.placeholders.each { |k, v| name[k] &&= v } if element
 
-      return @elements[name].value if @elements.key?(name)
-      return @params[name] if @params.key?(name)
+      return elements[name].value if elements.key?(name)
+      return params[name] if params.key?(name)
 
       name
     end

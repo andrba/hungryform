@@ -38,10 +38,4 @@ describe HungryForm::Elements::SelectField do
 			end
 		end
 	end
-
-	describe "#to_hash" do
-		it "should include multiple" do
-			expect(subject.to_hash).to include(:multiple)
-		end
-	end
 end

@@ -20,5 +20,6 @@ require 'hungryform/elements'
 if defined? Rails
   require 'hungryform/railtie'
   require 'hungryform/engine'
+  require 'hungryform/elements/base/renderable'
   require 'hungryform/helpers/action_view'
 end
