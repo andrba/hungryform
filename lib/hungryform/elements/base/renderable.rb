@@ -4,6 +4,7 @@ module HungryForm
       module Renderable
         def html_class
           classes = []
+          classes << attributes[:class] if attributes[:class]
           classes << 'hidden' unless visible?
           classes << 'invalid' if self.respond_to?(:invalid?) && self.invalid?
           classes.join(' ') if classes.any?

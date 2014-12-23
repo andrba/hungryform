@@ -1,7 +1,7 @@
 <%= content_tag :div, id: "#{field.name}_wrapper", class: field.html_class, 'data-dependency' => (field.dependency if field.dependency) do -%>
 
   <%= label_tag field.name, field.label << ("*" if field.required?).to_s %>
-  <%= text_field_tag field.name, field.value, field.attributes.except(:class) %>
+  <%= select_tag field.name, options_for_select(field.options.invert, field.value), field.attributes.except(:class) %>
   <% if field.error -%><span class="error"><%= field.error %></span><% end -%>
-  
+
 <% end -%>

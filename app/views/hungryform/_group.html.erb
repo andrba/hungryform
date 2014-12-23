@@ -1,0 +1,7 @@
+<%= content_tag :div, id: "#{field.name}_wrapper", class: field.html_class, 'data-dependency' => (field.dependency if field.dependency) do
+
+  field.elements.each do |el|
+    concat render partial: "#{views_prefix}/#{el.class.name.demodulize.underscore}", locals: { field: el, views_prefix: views_prefix }
+  end
+  
+end %>
