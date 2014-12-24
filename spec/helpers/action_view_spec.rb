@@ -40,14 +40,6 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
       before { form_params[:page] = 'second' }
 
       it { is_expected.to be_nil }
-
-      it 'should render a block' do
-        subject = helper.hungry_link_to_next_page(form, 'Next', params) do
-          'Nothing is there'
-        end
-        
-        expect(subject).to eq 'Nothing is there'
-      end
     end
   end
 
@@ -75,14 +67,6 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
       before { form_params[:page] = 'first' }
 
       it { is_expected.to be_nil }
-
-      it 'should render a block' do
-        subject = helper.hungry_link_to_prev_page(form, 'Prev', params) do
-          'Nothing is there'
-        end
-        
-        expect(subject).to eq 'Nothing is there'
-      end
     end
   end
 
