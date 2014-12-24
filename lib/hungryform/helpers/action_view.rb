@@ -1,13 +1,11 @@
 module HungryForm
   module ActionView
     def hungry_form_for(form, options={})
-      params = get_params(options.delete(:params))
-      params[:page] = form.current_page.name
       options[:rel] ||= "hungry-form-#{form.__id__}"
 
       views_prefix = options.delete(:views_prefix) || 'hungryform'
 
-      form_tag(url_for(params), options) do
+      form_tag('', options) do
         render partial: "#{views_prefix}/form", locals: { form: form, views_prefix: views_prefix }
       end
     end
