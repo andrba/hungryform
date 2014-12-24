@@ -58,8 +58,8 @@ module HungryForm
     private
 
     def get_params(params)
-      exclude_params = [:authenticity_token, :commit, :utf8, :_method]
-      self.params.except(exclude_params).merge(params || {})
+      exclude_params = :authenticity_token, :commit, :utf8, :_method
+      self.params.except(*exclude_params).merge(params || {})
     end
   end
 end
