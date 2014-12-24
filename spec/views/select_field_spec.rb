@@ -30,7 +30,7 @@ describe 'rendering a select field', :if => defined?(Rails) do
   it 'has a selected value' do
     attributes[:value] = 'second'
     render render_params
-    expect(rendered).to match /<option.*selected="selected".*value="second"/
+    expect(rendered).to match /<option(?=.*selected="selected")(?=.*value="second")/
   end
 
   # As a class is gonna be in the wrapper
