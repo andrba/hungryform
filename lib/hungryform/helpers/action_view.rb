@@ -3,6 +3,7 @@ module HungryForm
     def hungry_form_for(form, options={})
       params = get_params(options.delete(:params))
       params[:page] = form.current_page.name
+      options[:rel] ||= "hungry-form-#{form.__id__}"
 
       views_prefix = options.delete(:views_prefix) || 'hungryform'
 
@@ -13,7 +14,7 @@ module HungryForm
 
     def hungry_link_to_next_page(form, name, options={}, &block)
       params = get_params(options.delete(:params))
-      method = params[:method] || 'get'
+      method = options.delete(:method) || 'get'
 
       if method.to_s == 'get'
         params[:page] = form.next_page.try(:name) || ''
@@ -21,14 +22,14 @@ module HungryForm
         params[:page] = form.current_page.name
       end
 
-      link_to_unless form.next_page.nil?, name, url_for(params), options.reverse_merge(:rel => 'next', 'data-method' => method) do
+      link_to_unless form.next_page.nil?, name, url_for(params), options.reverse_merge(rel: "hungry-form-#{form.__id__}", data: { form_method: method, form_action: :next }) do
         block.call if block
       end
     end
 
     def hungry_link_to_prev_page(form, name, options={}, &block)
       params = get_params(options.delete(:params))
-      method = params[:method] || 'get'
+      method = options.delete(:method) || 'get'
 
       if method.to_s == 'get'
         params[:page] = form.prev_page.try(:name) || ''
@@ -36,18 +37,18 @@ module HungryForm
         params[:page] = form.current_page.name
       end
 
-      link_to_unless form.prev_page.nil?, name, url_for(params), options.reverse_merge(:rel => 'prev', 'data-method' => method) do
+      link_to_unless form.prev_page.nil?, name, url_for(params), options.reverse_merge(rel: "hungry-form-#{form.__id__}", data: { form_method: method, form_action: :prev }) do
         block.call if block
       end
     end
 
     def hungry_link_to_page(form, page, name, options={}, &block)
       params = get_params(options.delete(:params))
-      method = params[:method] || 'get'
+      method = options.delete(:method) || 'get'
 
       params[:page] = method.to_s == 'get' ? page.name : form.current_page.name
 
-      link_to_if page.visible?, name, url_for(params), options.reverse_merge(:rel => 'page', 'data-method' => method) do
+      link_to_if page.visible?, name, url_for(params), options.reverse_merge(rel: "hungry-form-#{form.__id__}", data: { form_method: method, form_action: :page }) do
         block.call if block
       end
     end

@@ -19,18 +19,21 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
 
   describe '#hungry_link_to_next_page' do
     let(:params) { {} }
-    subject { helper.hungry_link_to_next_page(form, "Next", params: params) }
+    subject { helper.hungry_link_to_next_page(form, "Next", params) }
+
+    it { is_expected.to include("rel=\"hungry-form-#{form.__id__}\"") }
+    it { is_expected.to include('data-form-action="next"') }
 
     context 'when method is GET' do
       it { is_expected.to include('/hungryform/second') }
-      it { is_expected.to include('data-method="get"') }
+      it { is_expected.to include('data-form-method="get"') }
     end
 
     context 'when method is POST' do
       before { params[:method] = :post }
 
       it { is_expected.to include('/hungryform/first') }
-      it { is_expected.to include('data-method="post"') }
+      it { is_expected.to include('data-form-method="post"') }
     end
 
     context 'when it is the last page' do
@@ -39,7 +42,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
       it { is_expected.to be_nil }
 
       it 'should render a block' do
-        subject = helper.hungry_link_to_next_page(form, 'Next', params: params) do
+        subject = helper.hungry_link_to_next_page(form, 'Next', params) do
           'Nothing is there'
         end
         
@@ -51,18 +54,21 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
   describe '#hungry_link_to_prev_page' do
     let(:form_params) { { page: 'second' } }
     let(:params) { {} }
-    subject { helper.hungry_link_to_prev_page(form, "Next", params: params) }
+    subject { helper.hungry_link_to_prev_page(form, "Prev", params) }
+
+    it { is_expected.to include("rel=\"hungry-form-#{form.__id__}\"") }
+    it { is_expected.to include('data-form-action="prev"') }
 
     context 'when method is GET' do
       it { is_expected.to include('/hungryform/first') }
-      it { is_expected.to include('data-method="get"') }
+      it { is_expected.to include('data-form-method="get"') }
     end
 
     context 'when method is POST' do
       before { params[:method] = :post }
       
       it { is_expected.to include('/hungryform/second') }
-      it { is_expected.to include('data-method="post"') }
+      it { is_expected.to include('data-form-method="post"') }
     end
 
     context 'when it is the first page' do
@@ -71,7 +77,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
       it { is_expected.to be_nil }
 
       it 'should render a block' do
-        subject = helper.hungry_link_to_prev_page(form, 'Prev', params: params) do
+        subject = helper.hungry_link_to_prev_page(form, 'Prev', params) do
           'Nothing is there'
         end
         
@@ -82,18 +88,21 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
 
   describe '#hungry_link_to_page' do
     let(:params) { {} }
-    subject { helper.hungry_link_to_page(form, form.pages.last, form.pages.last.label, params: params) }
+    subject { helper.hungry_link_to_page(form, form.pages.last, form.pages.last.label, params) }
+
+    it { is_expected.to include("rel=\"hungry-form-#{form.__id__}\"") }
+    it { is_expected.to include('data-form-action="page"') }
 
     context 'when method is GET' do
       it { is_expected.to include('/hungryform/second') }
-      it { is_expected.to include('data-method="get"') }
+      it { is_expected.to include('data-form-method="get"') }
     end
 
     context 'when method is POST' do
-      before { params[:method] = :patch }
+      before { params[:method] = :post }
       
       it { is_expected.to include('/hungryform/first') }
-      it { is_expected.to include('data-method="patch"') }
+      it { is_expected.to include('data-form-method="post"') }
     end
   end
 
