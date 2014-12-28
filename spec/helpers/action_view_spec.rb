@@ -72,7 +72,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
 
   describe '#hungry_link_to_page' do
     let(:params) { {} }
-    subject { helper.hungry_link_to_page(form, form.pages.last, form.pages.last.label, params) }
+    subject { helper.hungry_link_to_page(form, form.pages.last, params) }
 
     it { is_expected.to include("rel=\"hungry-form-#{form.__id__}\"") }
     it { is_expected.to include('data-form-action="page"') }

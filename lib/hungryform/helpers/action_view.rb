@@ -39,14 +39,14 @@ module HungryForm
 
     # Render a link to a provided page
     # If the page is not visible - render nothing
-    def hungry_link_to_page(form, page, name, options={}, &block)
+    def hungry_link_to_page(form, page, options={}, &block)
       params = clean_params(options.delete(:params))
       method = options.delete(:method) || 'get'
 
       params[:page] = method.to_s == 'get' ? page.name : form.current_page.name
 
       if page.visible?
-        link_to name, url_for(params), build_options(options, form, method, :page), &block
+        link_to page.label, url_for(params), build_options(options, form, method, :page), &block
       end
     end
 
