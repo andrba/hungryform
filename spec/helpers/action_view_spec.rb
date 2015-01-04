@@ -21,7 +21,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
     let(:params) { {} }
     subject { helper.hungry_link_to_next_page(form, "Next", params) }
 
-    it { is_expected.to include("rel=\"hungry-form-#{form.__id__}\"") }
+    it { is_expected.to include("data-rel=\"hungry-form-#{form.__id__}\"") }
     it { is_expected.to include('data-form-action="next"') }
 
     context 'when method is GET' do
@@ -48,7 +48,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
     let(:params) { {} }
     subject { helper.hungry_link_to_prev_page(form, "Prev", params) }
 
-    it { is_expected.to include("rel=\"hungry-form-#{form.__id__}\"") }
+    it { is_expected.to include("data-rel=\"hungry-form-#{form.__id__}\"") }
     it { is_expected.to include('data-form-action="prev"') }
 
     context 'when method is GET' do
@@ -74,7 +74,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
     let(:params) { {} }
     subject { helper.hungry_link_to_page(form, form.pages.last, params) }
 
-    it { is_expected.to include("rel=\"hungry-form-#{form.__id__}\"") }
+    it { is_expected.to include("data-rel=\"hungry-form-#{form.__id__}\"") }
     it { is_expected.to include('data-form-action="page"') }
 
     context 'when method is GET' do
@@ -95,6 +95,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
 
     it 'renders a form' do
       expect(subject).to include('<form')
+      expect(subject).to include("data-rel=\"hungry-form-#{form.__id__}\"")
       expect(subject).to match /<input.*name="action"/ #Mandatory hidden action field
       expect(subject).to include('First name')
       expect(subject).to include('Last name')
