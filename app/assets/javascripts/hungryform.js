@@ -10,7 +10,7 @@
   }
 
   HungryForm.prototype = {
-    init = function() {
+    init: function() {
       this.bindEvents();
     },
 
@@ -26,7 +26,7 @@
         return event.keyCode != 13; 
       });
       
-      $("a:data(rel='" + this.$form.data('rel') + "',action)").on('click', function(event) {
+      $("a[data-rel='" + this.$form.data('rel') + "'][data-action]").on('click', function(event) {
         if ($(this).data('form-method') == 'get') {
           return true;
         }
@@ -135,7 +135,7 @@
         obj.addClass('hidden');
       }
     }
-  }
+  };
 
   $.fn.hungryForm = function() {
     return this.filter("form").each(function() {

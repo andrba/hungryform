@@ -24,6 +24,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "capybara", "~> 2.4"
+  spec.add_development_dependency "launchy"
+  spec.add_development_dependency "poltergeist"
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'appraisal'
 end

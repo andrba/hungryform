@@ -1,10 +1,12 @@
 require 'action_controller/railtie'
 require 'action_view/railtie'
+require 'sprockets/railtie'
 
 app = Class.new(Rails::Application)
 app.config.secret_token = '6fd8fedc4c9d1c834f42b59f6e2cb39ce8c2dc68aafde87ddc5fa64803864b03dc59c61d99f406f76f597cdbc3b923a6c11a9d7580d8e0005837df9fdff262ef'
 app.config.eager_load = false
 app.config.active_support.deprecation = :log
+app.config.assets.enabled = true
 
 # Rais.root
 app.config.root = File.dirname(__FILE__)
@@ -13,8 +15,51 @@ app.initialize!
 
 # routes
 app.routes.draw do
-  get 'hungryform/:page' => 'hungryform#show'
-  post 'hungryform/:page' => 'hungryform#update'
+  get 'hungryform' => 'hungry_form#show'
+  get 'hungryform/:page' => 'hungry_form#show'
+  post 'hungryform/:page' => 'hungry_form#update'
+end
+
+# controllers
+class ApplicationController < ActionController::Base; end
+class HungryFormController < ApplicationController
+  before_action :set_form
+
+  def show
+    render :inline => render_form
+  end
+  def update
+    render :inline => render_form
+  end
+
+  private
+
+  def set_form
+    @form = form
+  end
+
+  def render_form
+    <<-ERB
+<html>
+<head>
+  <%= javascript_include_tag 'jquery-2.1.3.min', 'hungryform' %>
+  <script type='text/javascript'>
+    $(document).ready(function() {
+      $('form').hungryForm();
+    });
+  </script>
+</head>
+<body>
+  <%= hungry_form_for(@form) %>
+</end>
+ERB
+  end
+
+  def form
+    HungryForm::Form.new do
+    end
+  end
+
 end
 
 # helpers

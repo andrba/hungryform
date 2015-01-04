@@ -11,7 +11,10 @@ require 'hungryform'
 if defined? Rails
   require 'app/app'
   require 'rspec/rails'
-
+  require 'capybara/rails'
+  require 'capybara/poltergeist'
+  Capybara.javascript_driver = :poltergeist
+  
   RSpec.configure do |config|
     config.infer_spec_type_from_file_location!
   end

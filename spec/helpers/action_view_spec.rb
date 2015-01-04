@@ -15,7 +15,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
     end
   end
 
-  before { helper.params.merge!(controller: 'hungryform', action: 'show') }
+  before { helper.params.merge!(controller: 'hungry_form', action: 'show') }
 
   describe '#hungry_link_to_next_page' do
     let(:params) { {} }
