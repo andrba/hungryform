@@ -2,8 +2,8 @@ require "spec_helper"
 
 feature 'User clicks next', :if => defined?(Rails), :js => true do
   before {
-    allow_any_instance_of(HungryFormController).to receive(:form) do
-      HungryForm::Form.new do
+    allow_any_instance_of(HungryFormController).to receive(:form) do |params|
+      HungryForm::Form.new params: params do
         page :first do
           text_field :field1
         end

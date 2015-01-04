@@ -2,7 +2,8 @@ module HungryForm
   module ActionView
     # Render a form
     def hungry_form_for(form, options={})
-      options[:rel] ||= "hungry-form-#{form.__id__}"
+      options[:data] ||= {}
+      options[:data][:rel] ||= "hungry-form-#{form.__id__}"
 
       views_prefix = options.delete(:views_prefix) || 'hungryform'
 
@@ -64,8 +65,7 @@ module HungryForm
     # Build link_to options
     def build_options(options, form, method, action)
       options.reverse_merge(
-        rel: "hungry-form-#{form.__id__}", 
-        data: { form_method: method, form_action: action }
+        data: { form_method: method, form_action: action, rel: "hungry-form-#{form.__id__}" }
       )
     end
 

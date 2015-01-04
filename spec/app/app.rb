@@ -35,7 +35,7 @@ class HungryFormController < ApplicationController
   private
 
   def set_form
-    @form = form
+    @form = form(params)
   end
 
   def render_form
@@ -55,9 +55,7 @@ class HungryFormController < ApplicationController
 ERB
   end
 
-  def form
-    HungryForm::Form.new do
-    end
+  def form(params)
   end
 
 end

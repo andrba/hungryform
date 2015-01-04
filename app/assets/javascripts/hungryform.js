@@ -25,15 +25,15 @@
       this.$form.find('input, select').keypress(function(event) { 
         return event.keyCode != 13; 
       });
-      
-      $("a[data-rel='" + this.$form.data('rel') + "'][data-action]").on('click', function(event) {
+      console.log("a[data-rel='" + this.$form.data('rel') + "'][data-form-action]")
+      $("a[data-rel='" + this.$form.data('rel') + "'][data-form-action]").on('click', function(event) {
         if ($(this).data('form-method') == 'get') {
           return true;
         }
 
         event.preventDefault();
 
-        var action = $(this).data('action');
+        var action = $(this).data('form-action');
         form_action.val(action);
         that.$form.attr('action', $(this).attr('href'));
         
