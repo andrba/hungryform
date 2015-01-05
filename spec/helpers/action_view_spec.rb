@@ -96,7 +96,7 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
     it 'renders a form' do
       expect(subject).to include('<form')
       expect(subject).to include("data-rel=\"hungry-form-#{form.__id__}\"")
-      expect(subject).to match /<input.*name="action"/ #Mandatory hidden action field
+      expect(subject).to match /<input(?=.*name="form_action")(?=.*id="form_action")/ #Mandatory hidden action field
       expect(subject).to include('First name')
       expect(subject).to include('Last name')
       expect(subject).to include('Next')

@@ -23,12 +23,20 @@ end
 # controllers
 class ApplicationController < ActionController::Base; end
 class HungryFormController < ApplicationController
-  before_action :set_form
+  before_filter :set_form
 
   def show
     render :inline => render_form
   end
+
   def update
+    case params[:form_action]
+    when /next/
+      @form.move_to_next_page if @form.current_page.valid?
+    when /prev/
+      @form.move_to_prev_page
+    end
+
     render :inline => render_form
   end
 

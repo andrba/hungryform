@@ -15,7 +15,7 @@
     },
 
     bindEvents: function() {
-      var form_action = this.$form.find("input[name='action']"),
+      var form_action = this.$form.find("input[name='form_action']"),
           that = this;
 
       this.$form.find(':input').on('change select', function(e) {
@@ -25,7 +25,7 @@
       this.$form.find('input, select').keypress(function(event) { 
         return event.keyCode != 13; 
       });
-      console.log("a[data-rel='" + this.$form.data('rel') + "'][data-form-action]")
+
       $("a[data-rel='" + this.$form.data('rel') + "'][data-form-action]").on('click', function(event) {
         if ($(this).data('form-method') == 'get') {
           return true;

@@ -91,14 +91,22 @@ module HungryForm
 
     def next_page
       pages.each_cons(2) do |page, next_page|
-        return next_page if page == @current_page
+        return next_page if page == current_page
       end
+    end
+
+    def move_to_next_page
+      @current_page = next_page || pages.last
     end
 
     def prev_page
       pages.each_cons(2) do |prev_page, page|
-        return prev_page if page == @current_page
+        return prev_page if page == current_page
       end
+    end
+
+    def move_to_prev_page
+      @current_page = prev_page || pages.first
     end
   end
 end
