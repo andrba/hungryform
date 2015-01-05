@@ -78,4 +78,30 @@ describe HungryForm do
     end
   end
 
+  describe "#move_to_next_page" do
+    it "should set current page to the next page" do
+      subject.move_to_next_page
+      expect(subject.current_page).to eq subject.pages.last
+    end
+
+    it "should set current page to the last page" do
+      options[:params][:page] = "third"
+      subject.move_to_next_page
+      expect(subject.current_page).to eq subject.pages.last
+    end
+  end
+
+  describe "#move_to_prev_page" do
+    it "should set current page to the previous page" do
+      options[:params][:page] = "third"
+      subject.move_to_prev_page
+      expect(subject.current_page).to eq subject.pages.first
+    end
+
+    it "should set current page to the first page" do
+      subject.move_to_prev_page
+      expect(subject.current_page).to eq subject.pages.first
+    end
+  end
+
 end
