@@ -35,12 +35,6 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
       it { is_expected.to include('/hungryform/first') }
       it { is_expected.to include('data-form-method="post"') }
     end
-
-    context 'when it is the last page' do
-      before { form_params[:page] = 'second' }
-
-      it { is_expected.to be_nil }
-    end
   end
 
   describe '#hungry_link_to_prev_page' do
@@ -61,12 +55,6 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
       
       it { is_expected.to include('/hungryform/second') }
       it { is_expected.to include('data-form-method="post"') }
-    end
-
-    context 'when it is the first page' do
-      before { form_params[:page] = 'first' }
-
-      it { is_expected.to be_nil }
     end
   end
 
@@ -108,7 +96,11 @@ describe 'HungryForm::ActionView', :if => defined?(Rails), :type => :helper do
     end
   end
 
-  describe '#hungry_form_submit' do
-    pending
+  describe '#hungry_link_to_submit' do
+    let(:params) { {} }
+    subject { helper.hungry_link_to_submit(form, "Submit", params) }
+
+    it { is_expected.to include("data-rel=\"hungry-form-#{form.__id__}\"") }
+    it { is_expected.to include('data-form-action="submit"') }
   end
 end

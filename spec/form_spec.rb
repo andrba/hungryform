@@ -15,7 +15,7 @@ describe HungryForm do
   subject do
     HungryForm::Form.new(options) do
       page :first do
-        text_field :first_name
+        text_field :first_name, required: true
         text_field :last_name
       end
       page :second, visible: false do 
@@ -54,6 +54,17 @@ describe HungryForm do
     end
   end
 
+  describe "#valid?" do
+    it "should be valid" do
+      expect(subject.valid?).to eq true
+    end
+
+    it "should be invalid" do
+      options[:params]["first_first_name"] = ''
+      expect(subject.valid?).to eq false
+    end
+  end
+
   describe "#next_page" do
     it "should return the next page" do
       options[:params][:page] = "first"
@@ -77,31 +88,4 @@ describe HungryForm do
       expect(subject.prev_page).to be_nil
     end
   end
-
-  describe "#move_to_next_page" do
-    it "should set current page to the next page" do
-      subject.move_to_next_page
-      expect(subject.current_page).to eq subject.pages.last
-    end
-
-    it "should set current page to the last page" do
-      options[:params][:page] = "third"
-      subject.move_to_next_page
-      expect(subject.current_page).to eq subject.pages.last
-    end
-  end
-
-  describe "#move_to_prev_page" do
-    it "should set current page to the previous page" do
-      options[:params][:page] = "third"
-      subject.move_to_prev_page
-      expect(subject.current_page).to eq subject.pages.first
-    end
-
-    it "should set current page to the first page" do
-      subject.move_to_prev_page
-      expect(subject.current_page).to eq subject.pages.first
-    end
-  end
-
 end

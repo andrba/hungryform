@@ -6,7 +6,7 @@ module HungryForm
           classes = []
           classes << attributes[:class] if attributes[:class]
           classes << 'hidden' unless visible?
-          classes << 'invalid' if self.respond_to?(:invalid?) && self.invalid?
+          classes << 'invalid' if self.is_a?(Base::ActiveElement) && self.invalid?
           classes.join(' ') if classes.any?
         end
       end

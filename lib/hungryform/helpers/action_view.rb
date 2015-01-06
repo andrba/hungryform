@@ -20,9 +20,7 @@ module HungryForm
 
       params[:page] = get_page(form, method, :next_page)
       
-      unless form.next_page.nil?
-        link_to name, url_for(params), build_options(options, form, method, :next), &block
-      end
+      link_to name, url_for(params), build_options(options, form, method, :next), &block
     end
 
     # Render a link to the previous page
@@ -33,9 +31,7 @@ module HungryForm
 
       params[:page] = get_page(form, method, :prev_page)
 
-      unless form.prev_page.nil?
-        link_to name, url_for(params), build_options(options, form, method, :prev), &block
-      end
+      link_to name, url_for(params), build_options(options, form, method, :prev), &block
     end
 
     # Render a link to a provided page
@@ -46,12 +42,12 @@ module HungryForm
 
       params[:page] = method.to_s == 'get' ? page.name : form.current_page.name
 
-      if page.visible?
-        link_to page.label, url_for(params), build_options(options, form, method, :page), &block
-      end
+      link_to page.label, url_for(params), build_options(options, form, method, :page), &block
     end
 
-    def hungry_form_submit(form, name, options={})
+    def hungry_link_to_submit(form, name, options={}, &block)
+      params = clean_params(options.delete(:params))
+      link_to name, url_for(params), build_options(options, form, :post, :submit), &block
     end
 
     private

@@ -45,18 +45,22 @@ module HungryForm
           is_valid = true
 
           elements.each do |el|
-            next if el.valid?
+            next if !el.respond_to?(:valid?) || el.valid?
 
             is_valid = false
             case el
-            when BaseActiveElement
+            when Base::ActiveElement
               errors[el.name] = el.error
-            when BaseGroupObject
+            when Base::Group
               errors.merge!(el.errors)
             end
           end
 
           is_valid
+        end
+
+        def invalid?
+          !valid?
         end
 
         def to_hash

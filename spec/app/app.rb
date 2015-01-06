@@ -16,6 +16,7 @@ app.initialize!
 # routes
 app.routes.draw do
   get 'hungryform' => 'hungry_form#show'
+  get 'hungryform/submitted' => 'hungry_form#submitted'
   get 'hungryform/:page' => 'hungry_form#show'
   post 'hungryform/:page' => 'hungry_form#update'
 end
@@ -32,12 +33,24 @@ class HungryFormController < ApplicationController
   def update
     case params[:form_action]
     when /next/
-      @form.move_to_next_page if @form.current_page.valid?
+      if @form.current_page.valid?
+        redirect_to hungryform_path(page: @form.next_page) 
+      else
+        render :inline => render_form
+      end
     when /prev/
-      @form.move_to_prev_page
+      redirect_to hungryform_path(page: @form.prev_page)
+    when /submit/
+      if @form.valid?
+        redirect_to hungryform_submitted_path
+      else
+        redirect_to hungryform_path(page: @form.pages.find(&:invalid?))
+      end
     end
+  end
 
-    render :inline => render_form
+  def submitted
+    render :inline => "The form has been submitted successfully"
   end
 
   private
