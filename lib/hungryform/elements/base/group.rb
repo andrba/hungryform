@@ -4,7 +4,7 @@ module HungryForm
       # A base group object is used to handle nested elements.
       # Nested element can be a regular BaseElement or BaseActiveElement,
       # as well as a BaseGroup element.
-      # 
+      #
       # The following sample has three BaseGroup elements (page, group and nested group)
       # that define a structure of a single form page
       #

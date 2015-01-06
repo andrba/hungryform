@@ -1,3 +1,5 @@
+# All in one Rails App
+
 require 'action_controller/railtie'
 require 'action_view/railtie'
 require 'sprockets/railtie'
@@ -77,6 +79,7 @@ ERB
   end
 
   def form(params)
+    # See integration tests for a form definition
   end
 
 end

@@ -34,7 +34,7 @@ module HungryForm
 
           @validation_rules.each do |key, rule|
             self.error = HungryForm::Validator.send(key, self, rule) || ''
-            unless self.error.empty?
+            unless error.empty?
               self.error = "This field #{error}"
               is_valid = false
               break

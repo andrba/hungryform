@@ -18,16 +18,16 @@
       var form_action = this.$form.find("input[name='form_action']"),
           that = this;
 
-      this.$form.find(':input').on('change select', function(e) {
+      this.$form.find(':input').on('change select', function() {
         that.updateVisibility();
       });
 
       this.$form.find('input, select').keypress(function(event) { 
-        return event.keyCode != 13; 
+        return event.keyCode !== 13; 
       });
 
       $("a[data-rel='" + this.$form.data('rel') + "'][data-form-action]").on('click', function(event) {
-        if ($(this).data('form-method') == 'get') {
+        if ($(this).data('form-method') === 'get') {
           return true;
         }
 
@@ -60,22 +60,22 @@
       var that = this;
 
       $.each(dependency, function(operator, args) {
-        if (operator == 'EQ') {
+        if (operator === 'EQ') {
           isDependent = that._isEqual(args);
           return false;
-        } else if (operator == 'LT') {
+        } else if (operator === 'LT') {
           isDependent = that._isLessThan(args);
           return false;
-        } else if (operator == 'GT') {
+        } else if (operator === 'GT') {
           isDependent = that._isGreaterThan(args);
           return false;
-        } else if (operator == 'NOT') {
+        } else if (operator === 'NOT') {
           isDependent = !that.resolveDependency(args);
           return false;
-        } else if (operator == 'IS') {
+        } else if (operator === 'IS') {
           isDependent = that._isSet(args);
           return false;
-        } else if (operator == 'AND') {
+        } else if (operator === 'AND') {
           isDependent = true;
           $.each(args, function(index, argument) {
               isDependent = that.resolveDependency(argument) && isDependent;
@@ -85,7 +85,7 @@
               }
           });
           return false;
-        } else if (operator == 'OR') {
+        } else if (operator === 'OR') {
           $.each(args, function(index, argument) {
               isDependent = that.resolveDependency(argument) || isDependent;
               if (isDependent === true) {
@@ -109,7 +109,7 @@
       return args.length > 1 && parseInt(this._getArgument(args[0])) > parseInt(this._getArgument(args[1]));
     },
     _isSet: function(args) {
-      return typeof(args[0]) != 'undefined' && this._getArgument(args[0]).length > 0;
+      return typeof(args[0]) !== 'undefined' && this._getArgument(args[0]).length > 0;
     },
     _getArgument: function(argument) {
       var input = this.$form.find("input[name='" + argument + "'], textarea[name='" + argument + "'], select[name='" + argument + "']");
