@@ -24,6 +24,10 @@ form = HungryForm::Form.new do
     end
   end 
 end
+
+if form.valid?
+  form.to_json
+end
 ```
 
 To assign values to the form elements pass them as a hash on form initialization. The params hash must consist of elements names and their values. Please note, that the elements names must contain the full path to the element, starting from the page name.
@@ -48,6 +52,30 @@ You can assign default value to a form element:
 ```ruby
 text_field :email, value: "john.doe@yahoo.com"
 ```
+
+## Rails
+
+In order to integrate this gem with a Rails application include the ```hungryform``` jquery plugin into your application.js and call it on the form:
+
+```ruby
+# application.js
+//= require hungryform
+```
+```javascript
+// form.js
+$(document).ready(function() {
+  $('form').hungryForm();
+});
+```
+
+Use the following helper to generate the form in your views:
+
+```ruby
+<%= hungry_form_for(@form) %>
+```
+
+You can redefine the fields templates by creating your own ones in the views/hungryform folder.
+
 ## Field Dependencies
 
 Each element of HungryForm, including pages and groups, can have a dependency parameter. This parameter must be a json string with an expression, that resolves to a boolean result. Within this expression you can use and combine the following operators, creating complex dependencies that can involve multiple elements:
