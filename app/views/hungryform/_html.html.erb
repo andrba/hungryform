@@ -1,0 +1,5 @@
+<%= content_tag :div, id: "#{field.name}_wrapper", class: field.html_class, 'data-dependency' => (field.dependency if field.dependency) do -%>
+
+  <%= field.value.html_safe %>
+  
+<% end -%>

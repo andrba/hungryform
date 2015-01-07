@@ -1,6 +1,6 @@
 # HungryForm [![Build Status](https://travis-ci.org/andrba/hungryform.svg?branch=master)](https://travis-ci.org/andrba/hungryform) [![Code Climate](https://codeclimate.com/github/andrba/hungryform/badges/gpa.svg)](https://codeclimate.com/github/andrba/hungryform)
 
-HungryForm is a gem for managing multiple page forms. The main purpose of this gem is to give developers an easy DSL to build complex forms.
+HungryForm is a gem for managing multiple page forms. The main purpose of this gem is to give developers an easy DSL to build complex forms. 
 
 ## Usage
 
@@ -48,7 +48,7 @@ You can assign default value to a form element:
 ```ruby
 text_field :email, value: "john.doe@yahoo.com"
 ```
-## Dependencies
+## Field Dependencies
 
 Each element of HungryForm, including pages and groups, can have a dependency parameter. This parameter must be a json string with an expression, that resolves to a boolean result. Within this expression you can use and combine the following operators, creating complex dependencies that can involve multiple elements:
 

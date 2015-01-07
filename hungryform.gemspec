@@ -19,9 +19,13 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 1.9.2'
   
-  spec.add_dependency "activesupport", ['>= 3.0.0']
+  spec.add_dependency "activesupport"
 
   spec.add_development_dependency "bundler", ['>= 1.0.0']
   spec.add_development_dependency "rake", ['>= 0']
   spec.add_development_dependency "rspec", ['>= 3.0']
+  spec.add_development_dependency "capybara", "~> 2.4"
+  spec.add_development_dependency "launchy"
+  spec.add_development_dependency "poltergeist"
+  spec.add_development_dependency 'appraisal'
 end

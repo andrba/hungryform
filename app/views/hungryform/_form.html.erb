@@ -1,0 +1,11 @@
+<%= hidden_field_tag :form_action %>
+
+<h1><%= form.current_page.label %></h1>
+
+<% form.current_page.elements.each do |el| %>
+  <%= render partial: "#{views_prefix}/#{el.class.name.demodulize.underscore}", locals: { field: el, views_prefix: views_prefix } %>
+<% end %>
+
+<%= hungry_link_to_prev_page(form, "Prev", method: :post) if form.prev_page %>
+<%= hungry_link_to_next_page(form, "Next", method: :post) if form.next_page %>
+<%= hungry_link_to_submit(form, "Submit") if form.current_page == form.pages.last %>

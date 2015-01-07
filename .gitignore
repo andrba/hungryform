@@ -1,1 +1,6 @@
 *.gem
+*.log
+
+Gemfile.lock
+gemfiles/*.lock
+spec/app/tmp

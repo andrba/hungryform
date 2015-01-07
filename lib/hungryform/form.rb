@@ -32,7 +32,7 @@ module HungryForm
   # in the form.pages array. Pages without dependencies will be allways
   # resolved. The rest of the pages will be ignored.
   class Form
-    attr_reader :pages
+    attr_reader :pages, :current_page
 
     def initialize(attributes = {}, &block)
       unless block_given?
@@ -43,6 +43,12 @@ module HungryForm
       @pages = []
 
       instance_eval(&block)
+
+      if @resolver.params[:page]
+        @current_page = pages.find { |p| p.name.to_s == @resolver.params[:page] }
+      end
+
+      @current_page ||= pages.first
     end
 
     # Create a form page
@@ -81,6 +87,18 @@ module HungryForm
 
     def to_json
       JSON.generate(to_hash)
+    end
+
+    def next_page
+      pages.each_cons(2) do |page, next_page|
+        return next_page if page == current_page
+      end
+    end
+
+    def prev_page
+      pages.each_cons(2) do |prev_page, page|
+        return prev_page if page == current_page
+      end
     end
   end
 end
