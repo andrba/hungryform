@@ -55,17 +55,18 @@ text_field :email, value: "john.doe@yahoo.com"
 
 ## Rails
 
-In order to integrate this gem with a Rails application include the ```hungryform``` jquery plugin into your application.js and call it on the form:
+Installation:
+
+Add the ```hungryform``` gem to your Gemfile:
 
 ```ruby
-# application.js
-//= require hungryform
+gem "hungryform"
 ```
+
+Add the Hungryform require to your application.js:
+
 ```javascript
-// form.js
-$(document).ready(function() {
-  $('form').hungryForm();
-});
+//= require hungryform
 ```
 
 Use the following helper to generate the form in your views:
@@ -74,11 +75,19 @@ Use the following helper to generate the form in your views:
 <%= hungry_form_for(@form) %>
 ```
 
-You can redefine the fields templates by creating your own ones in the views/hungryform folder.
+Initialize the jquery plugin on a form:
+
+```javascript
+$(document).ready(function() {
+  $('form').hungryForm();
+});
+```
+
+You can redefine the field templates by creating your own ones in the views/hungryform folder.
 
 ## Field Dependencies
 
-Each element of HungryForm, including pages and groups, can have a dependency parameter. This parameter must be a json string with an expression, that resolves to a boolean result. Within this expression you can use and combine the following operators, creating complex dependencies that can involve multiple elements:
+Each element of HungryForm, including pages and groups, can have a ```dependency``` parameter. This parameter must be a json string with an expression, that resolves to a boolean result. Within this expression you can use and combine the following operators, creating complex dependencies that can involve multiple elements:
 
 ```json
 # val1 == val2
