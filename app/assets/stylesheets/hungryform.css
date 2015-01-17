@@ -1,0 +1,8 @@
+.hungryform .hidden {
+  display: none;
+}
+
+.hungryform .invalid span.error {
+  display: block;
+  color: #dc0024;
+}

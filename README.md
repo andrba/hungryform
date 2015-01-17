@@ -69,6 +69,12 @@ Add the Hungryform require to your application.js:
 //= require hungryform
 ```
 
+Add the Hungryform require to your application.css:
+
+```css
+//= require hungryform
+```
+
 Use the following helper to generate the form in your views:
 
 ```ruby
