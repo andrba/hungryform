@@ -65,6 +65,7 @@ class HungryFormController < ApplicationController
     <<-ERB
 <html>
 <head>
+  <%= stylesheet_link_tag 'hungryform' %>
   <%= javascript_include_tag 'jquery-2.1.3.min', 'hungryform' %>
   <script type='text/javascript'>
     $(document).ready(function() {

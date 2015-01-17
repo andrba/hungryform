@@ -4,6 +4,7 @@ module HungryForm
     def hungry_form_for(form, options = {})
       options[:data] ||= {}
       options[:data][:rel] ||= form_rel(form)
+      options[:class] = [options[:class], "hungryform"].join(' ')
 
       views_prefix = options.delete(:views_prefix) || 'hungryform'
 
@@ -65,7 +66,7 @@ module HungryForm
       case action_options[:action]
       when :page
         action_options[:page].name
-      else
+      when :next, :prev
         form.send("#{action_options[:action]}_page").try(:name) || ''
       end
     end

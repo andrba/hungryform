@@ -26,7 +26,6 @@ feature 'User activates dependency rules', :if => defined?(Rails), :js => true d
 
   scenario 'they see textarea' do
     visit hungryform_path
-    save_and_open_page
     select("Show textarea", :from => 'first_select_field')
     expect(page).to have_content 'Textarea'
   end
