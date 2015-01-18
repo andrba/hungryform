@@ -22,6 +22,8 @@ app.routes.draw do
   post 'hungryform/:page' => 'hungry_form#update'
 end
 
+
+
 # controllers
 class ApplicationController < ActionController::Base; end
 class HungryFormController < ApplicationController
@@ -36,6 +38,7 @@ class HungryFormController < ApplicationController
     case params[:form_action]
     when /next/
       if @form.current_page.valid?
+        save_form_to_session
         redirect_to hungryform_path(@form.next_page) 
       else
         render :inline => render_form
@@ -58,7 +61,15 @@ class HungryFormController < ApplicationController
   private
 
   def set_form
-    @form = form(params.merge(session['form_field_values'] || {}))
+    session['form_field_values'] ||= {}
+    # p '================================'
+    # pp session['form_field_values']
+    @form = form(session['form_field_values'].merge(params))
+    
+    # pp params
+    # pp session['form_field_values'].merge(params)
+    # pp @form.values
+    
   end
 
   # For the testing purposes form field values are

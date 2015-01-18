@@ -30,7 +30,8 @@ module HungryForm
           # An element's name is prefixed with all parents names up to the page
           self.name = resolver.get_value(name, self)
           self.name = "#{parent.name}_#{name}" unless parent.nil?
-
+          self.name = self.name.to_sym
+          
           # Label can be created from name if there is no label given
           if @attributes[:label]
             self.label = resolver.get_value(@attributes.delete(:label), self)

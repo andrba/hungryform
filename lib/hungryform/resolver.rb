@@ -5,7 +5,7 @@ module HungryForm
     attr_accessor :elements, :params
 
     def initialize(options = {})
-      self.params = options[:params] || {}
+      self.params = options[:params].try(:symbolize_keys) || {}
       self.elements = {}
     end
 
@@ -26,10 +26,8 @@ module HungryForm
       # we get its placeholders and replace substrings in the name argument
       element.placeholders.each { |k, v| name[k] &&= v } if element
 
-      return elements[name].value if elements.key?(name)
-      return params[name] if params.key?(name)
-
-      name
+      name_sym = name.to_sym
+      elements[name_sym].try(:value) || params[name_sym] || name
     end
 
     # Gets dependency rules hash and returns true or false depending on

@@ -2,8 +2,8 @@ require "spec_helper"
 
 feature 'User activates dependency rules', :if => defined?(Rails), :js => true do
   before {
-    allow_any_instance_of(HungryFormController).to receive(:form) do |controller|
-      HungryForm::Form.new params: controller.params do
+    allow_any_instance_of(HungryFormController).to receive(:form) do |controller, params|
+      HungryForm::Form.new params: params do
         page :first do
           select_field :select_field, required: true, options: {
             show_textarea: "Show textarea",

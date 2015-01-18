@@ -2,8 +2,8 @@ require "spec_helper"
 
 feature 'User clicks next on every page', :if => defined?(Rails), :js => true do
   before {
-    allow_any_instance_of(HungryFormController).to receive(:form) do |controller|
-      HungryForm::Form.new params: controller.params do
+    allow_any_instance_of(HungryFormController).to receive(:form) do |controller, params|
+      HungryForm::Form.new params: params do
         page :first do
           text_field :field1, required: true
         end
@@ -78,8 +78,11 @@ feature 'User clicks next on every page', :if => defined?(Rails), :js => true do
   end
 
   scenario 'they successfully submit the entire form' do
-    visit hungryform_path(page: :third, first_field1: 'field1 value', second_field2: 'field2 value')
-
+    visit hungryform_path(:first)
+    fill_in 'first_field1', with: 'field1 value'
+    click_link 'Next'
+    fill_in 'second_field2', with: 'field2 value'
+    click_link 'Next'
     fill_in 'third_field3', with: 'field3 value'
     click_link 'Submit'
 

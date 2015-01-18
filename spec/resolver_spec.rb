@@ -11,7 +11,7 @@ describe HungryForm::Resolver do
 
     it "should initialize resolver params" do
       resolver_params[:params] = {"key" => "value"}
-      expect(subject.params).to eq({"key" => "value"})
+      expect(subject.params).to eq({:key => "value"})
     end
   end
 
