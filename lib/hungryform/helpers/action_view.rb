@@ -4,7 +4,7 @@ module HungryForm
     def hungry_form_for(form, options = {})
       options[:data] ||= {}
       options[:data][:rel] ||= form_rel(form)
-      options[:class] = [options[:class], "hungryform"].join(' ')
+      options[:class] = [options[:class], "hungryform"].compact.join(' ')
 
       views_prefix = options.delete(:views_prefix) || 'hungryform'
 
@@ -33,7 +33,7 @@ module HungryForm
 
     # Render a link that submits the form
     def hungry_link_to_submit(form, name, options = {}, &block)
-      params = clean_params(options.delete(:params))
+      params = clean_params(form, options.delete(:params))
 
       link_to name, url_for(params), options.reverse_merge(
         data: { form_method: :post, form_action: :submit, rel: form_rel(form) }
@@ -45,7 +45,7 @@ module HungryForm
     # Builds link_to params except for the link's name
     def link_params(form, options, action_options = {})
       method = options.delete(:method) || 'get'
-      params = clean_params(options.delete(:params))
+      params = clean_params(form, options.delete(:params))
 
       params[:page] = method.to_s == 'get' ? get_page(form, action_options) : form.current_page.name
 
@@ -77,10 +77,12 @@ module HungryForm
       "hungry-form-#{form.__id__}"
     end
 
-    # Remove Rails specific params from the params hash
-    def clean_params(params)
-      exclude_params = :authenticity_token, :commit, :utf8, :_method
-      self.params.except(*exclude_params).merge(params || {})
+    # Remove Rails specific params from the params hash as well as
+    # all the form params
+    def clean_params(form, params)
+      rails_params = [:authenticity_token, :commit, :utf8, :_method]
+      form_params = form.elements.keys + [:form_action, :errors]
+      self.params.except(*(rails_params + form_params)).merge(params || {})
     end
   end
 end

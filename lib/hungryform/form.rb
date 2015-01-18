@@ -74,7 +74,7 @@ module HungryForm
       !valid?
     end
 
-    # Get all the elements that the form consists of
+    # Get all the elements the form consists of
     def elements
       @resolver.elements
     end
@@ -87,6 +87,17 @@ module HungryForm
 
     def to_json
       JSON.generate(to_hash)
+    end
+
+    # Create a hash of form elements values
+    def values
+      active_elements = elements.select do |name, el|
+        el.is_a? Elements::Base::ActiveElement
+      end
+
+      active_elements.each_with_object({}) do |(name, el), o| 
+        o[name.to_sym] = el.value 
+      end
     end
 
     def next_page

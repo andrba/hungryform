@@ -20,13 +20,32 @@ feature 'User activates dependency rules', :if => defined?(Rails), :js => true d
         page :second, dependency: '{"EQ": ["first_select_field", "second_page_visible"]}' do
           text_field :field2, required: true
         end
+
+        page :third do
+          html :last_page, value: 'This is the last page'
+        end
       end
     end
   }
 
   scenario 'they see textarea' do
     visit hungryform_path
+    expect(page).not_to have_content 'Textarea'
     select("Show textarea", :from => 'first_select_field')
     expect(page).to have_content 'Textarea'
+  end
+
+  scenario 'they see group' do
+    visit hungryform_path
+    expect(page).not_to have_content 'This is a group'
+    select("Show group", :from => 'first_select_field')
+    expect(page).to have_content 'This is a group'
+  end
+
+  scenario 'they see the second page' do
+    visit hungryform_path
+    select("Make second page visible", :from => 'first_select_field')
+    click_link 'Next'
+    expect(page).to have_content 'Second'
   end
 end

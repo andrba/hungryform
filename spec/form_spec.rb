@@ -54,6 +54,16 @@ describe HungryForm do
     end
   end
 
+  describe "#values" do
+    it "should generate an array of name => value hashes" do
+      expect(subject.values).to include(
+        first_first_name: "John",
+        first_last_name: "Doe",
+        third_occupation: "programmer"
+      )
+    end
+  end
+
   describe "#valid?" do
     it "should be valid" do
       expect(subject.valid?).to eq true

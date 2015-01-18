@@ -43,7 +43,8 @@ module HungryForm
         def valid?
           errors.clear
           is_valid = true
-
+          return true unless visible?
+          
           elements.each do |el|
             next if !el.respond_to?(:valid?) || el.valid?
 

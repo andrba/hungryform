@@ -17,9 +17,8 @@ app.initialize!
 
 # routes
 app.routes.draw do
-  get 'hungryform' => 'hungry_form#show'
   get 'hungryform/submitted' => 'hungry_form#submitted'
-  get 'hungryform/:page' => 'hungry_form#show'
+  get 'hungryform/(:page)' => 'hungry_form#show', as: :hungryform
   post 'hungryform/:page' => 'hungry_form#update'
 end
 
@@ -29,6 +28,7 @@ class HungryFormController < ApplicationController
   before_filter :set_form
 
   def show
+    @form.valid? if params[:errors]
     render :inline => render_form
   end
 
@@ -36,17 +36,17 @@ class HungryFormController < ApplicationController
     case params[:form_action]
     when /next/
       if @form.current_page.valid?
-        redirect_to hungryform_path(page: @form.next_page) 
+        redirect_to hungryform_path(@form.next_page) 
       else
         render :inline => render_form
       end
     when /prev/
-      redirect_to hungryform_path(page: @form.prev_page)
+      redirect_to hungryform_path(@form.prev_page)
     when /submit/
       if @form.valid?
         redirect_to hungryform_submitted_path
       else
-        redirect_to hungryform_path(page: @form.pages.find(&:invalid?))
+        redirect_to hungryform_path(@form.pages.find(&:invalid?), errors: true)
       end
     end
   end
@@ -58,7 +58,14 @@ class HungryFormController < ApplicationController
   private
 
   def set_form
-    @form = form(params)
+    @form = form(params.merge(session['form_field_values'] || {}))
+  end
+
+  # For the testing purposes form field values are
+  # stored in session. In real world you probably will
+  # be storing them in a database. 
+  def save_form_to_session
+    session['form_field_values'] = @form.values
   end
 
   def render_form
