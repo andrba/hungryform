@@ -137,9 +137,9 @@
     }
   };
 
-  $.fn.hungryForm = function() {
-    return this.filter("form").each(function() {
+  $(function() {
+    $('form.hungryform').each(function() {
       new HungryForm(this);
     });
-  };
+  });
 }(jQuery));

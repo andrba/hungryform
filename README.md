@@ -81,14 +81,6 @@ Use the following helper to generate the form in your views:
 <%= hungry_form_for(@form) %>
 ```
 
-Initialize the jquery plugin on a form:
-
-```javascript
-$(document).ready(function() {
-  $('form').hungryForm();
-});
-```
-
 You can redefine the field templates by creating your own ones in the views/hungryform folder.
 
 ## Field Dependencies

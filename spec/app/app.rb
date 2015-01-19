@@ -62,14 +62,7 @@ class HungryFormController < ApplicationController
 
   def set_form
     session['form_field_values'] ||= {}
-    # p '================================'
-    # pp session['form_field_values']
-    @form = form(session['form_field_values'].merge(params))
-    
-    # pp params
-    # pp session['form_field_values'].merge(params)
-    # pp @form.values
-    
+    @form = form(session['form_field_values'].merge(params))   
   end
 
   # For the testing purposes form field values are
@@ -85,11 +78,6 @@ class HungryFormController < ApplicationController
 <head>
   <%= stylesheet_link_tag 'hungryform' %>
   <%= javascript_include_tag 'jquery-2.1.3.min', 'hungryform' %>
-  <script type='text/javascript'>
-    $(document).ready(function() {
-      $('form').hungryForm();
-    });
-  </script>
 </head>
 <body>
   <%= hungry_form_for(@form) %>
