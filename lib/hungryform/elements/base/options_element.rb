@@ -19,6 +19,8 @@ module HungryForm
             self.options = resolver.get_value(options, self)
           end
 
+          self.options = ActiveSupport::HashWithIndifferentAccess.new(options)
+
           super
         end
 
