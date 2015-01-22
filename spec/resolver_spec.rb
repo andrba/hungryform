@@ -40,37 +40,37 @@ describe HungryForm::Resolver do
 
   describe "#resolve_dependency" do
     it "should resolve EQ dependency" do
-      dependency = { "EQ" => ["Text", "Text"] }
+      dependency = { eq: ["Text", "Text"] }
       expect(subject.resolve_dependency(dependency)).to eq true
     end
 
     it "should resolve LT dependency" do
-      dependency = { "LT" => ["0", "1"] }
+      dependency = { lt: ["0", "1"] }
       expect(subject.resolve_dependency(dependency)).to eq true
     end
 
     it "should resolve GT dependency" do
-      dependency = { "GT" => ["1", "0"] }
+      dependency = { gt: ["1", "0"] }
       expect(subject.resolve_dependency(dependency)).to eq true
     end 
 
     it "should resolve SET dependency" do
-      dependency = { "SET" => "1" }
+      dependency = { set: "1" }
       expect(subject.resolve_dependency(dependency)).to eq true
     end 
 
     it "should resolve AND dependency" do
-      dependency = { "AND" => [{"SET" => "1"}, {"SET" => "1"}] }
+      dependency = { and: [{set: "1"}, {set: "1"}] }
       expect(subject.resolve_dependency(dependency)).to eq true
     end
 
     it "should resolve OR dependency" do
-      dependency = { "OR" => [{"SET" => ""}, {"SET" => "1"}] }
+      dependency = { or: [{set: ""}, {set: "1"}] }
       expect(subject.resolve_dependency(dependency)).to eq true
     end
 
     it "should resolve NOT dependency" do
-      dependency = { "NOT" => {"SET" => ""} }
+      dependency = { not: {set: ""} }
       expect(subject.resolve_dependency(dependency)).to eq true
     end
   end

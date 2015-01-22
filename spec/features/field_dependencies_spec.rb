@@ -11,13 +11,13 @@ feature 'User activates dependency rules', :if => defined?(Rails), :js => true d
             second_page_visible: "Make second page visible"
           }
 
-          text_area :textarea, dependency: '{"EQ": ["first_select_field", "show_textarea"]}'
-          group :group, dependency: '{"EQ": ["first_select_field", "show_group"]}' do
+          text_area :textarea, dependency: { eq: ["first_select_field", "show_textarea"] }
+          group :group, dependency: { eq: ["first_select_field", "show_group"] } do
             html :group_body, value: 'This is a group'
           end
         end
 
-        page :second, dependency: '{"EQ": ["first_select_field", "second_page_visible"]}' do
+        page :second, dependency: { eq: ["first_select_field", "second_page_visible"] } do
           text_field :field2, required: true
         end
 

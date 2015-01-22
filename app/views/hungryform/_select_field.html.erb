@@ -1,4 +1,4 @@
-<%= content_tag :div, id: "#{field.name}_wrapper", class: field.html_class, 'data-dependency' => (field.dependency if field.dependency) do
+<%= content_tag :div, id: "#{field.name}_wrapper", class: field.html_class, 'data-dependency' => field.dependency_json do
 
   concat label_tag field.name, field.label << ("*" if field.required?).to_s
   concat select_tag field.name, options_for_select(field.options.invert, field.value), field.attributes.except(:class)

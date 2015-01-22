@@ -16,9 +16,9 @@ RSpec.shared_examples 'it is wrapped in a div' do
   end
 
   it "has a data-dependency attribute" do
-    attributes[:dependency] = '{"EQ":["1", "1"]}'
+    attributes[:dependency] = { eq: [1, 1] }
     render render_params
-    expect(rendered).to include 'data-dependency="{&quot;EQ&quot;:[&quot;1&quot;, &quot;1&quot;]}"'
+    expect(rendered).to include 'data-dependency="{&quot;eq&quot;:[1,1]}"'
   end
 
   it "has an id attribute" do

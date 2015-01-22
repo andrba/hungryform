@@ -34,12 +34,12 @@ module HungryForm
     # the result of a recursive processing of the rules
     def resolve_dependency(dependency)
       dependency.each do |operator, arguments|
+        operator = operator.to_sym
+
         case operator
-        when 'AND'
-          return resolve_multi_dependency(:and, arguments)
-        when 'OR'
-          return resolve_multi_dependency(:or, arguments)
-        when 'NOT'
+        when :and, :or
+          return resolve_multi_dependency(operator, arguments)
+        when :not
           return !resolve_dependency(arguments)
         end
 
@@ -49,13 +49,13 @@ module HungryForm
         return false if arguments.any?(&:nil?)
 
         case operator
-        when 'EQ'
+        when :eq
           return arguments[0].to_s == arguments[1].to_s
-        when 'LT'
+        when :lt
           return arguments[0].to_f < arguments[1].to_f
-        when 'GT'
+        when :gt
           return arguments[0].to_f > arguments[1].to_f
-        when 'SET'
+        when :set
           return !arguments[0].empty?
         end
       end
@@ -63,7 +63,7 @@ module HungryForm
 
     private
 
-    # Helper method to resolve AND or OR conditions.
+    # Method resolves AND or OR conditions.
     # Walks through the arguments and resolves their dependencies.
     def resolve_multi_dependency(type, arguments)
       if arguments.size == 0

@@ -23,8 +23,7 @@ module HungryForm
           self.visible = @attributes.key?(:visible) ? @attributes.delete(:visible) : true
 
           if dependency
-            json_dependency = ::JSON.parse(dependency)
-            self.visible &&= resolver.resolve_dependency(json_dependency)
+            self.visible &&= resolver.resolve_dependency(dependency)
           end
 
           # An element's name is prefixed with all parents names up to the page
@@ -37,6 +36,10 @@ module HungryForm
           else
             self.label = resolver.get_value(name, self).humanize
           end
+        end
+
+        def dependency_json
+          JSON.generate(dependency) if dependency
         end
       end
     end

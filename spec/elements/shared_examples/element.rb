@@ -11,12 +11,12 @@ RSpec.shared_examples "an element" do
 
     context "when dependency is present" do
       it "should not be visible" do
-        options[:dependency] = '{"EQ": ["0", "1"]}'
+        options[:dependency] = { eq: [0, 1] }
         expect(subject.visible?).to eq false
       end
 
       it "should be visible" do
-        options[:dependency] = '{"EQ": ["1", "1"]}'
+        options[:dependency] = { eq: [1, 1] }
         expect(subject.visible?).to eq true
       end
     end
@@ -35,7 +35,7 @@ RSpec.shared_examples "an element" do
 
   describe "#to_hash" do
     it "should include visible, dependency, name and label" do
-      options.merge!(dependency: '{"EQ": [1, 1]}', name: 'name')
+      options.merge!(dependency: { eq: [1, 1] }, name: 'name')
       expect(subject.to_hash).to include(:visible, :dependency, :name, :label)
     end
   end

@@ -60,22 +60,22 @@
       var that = this;
 
       $.each(dependency, function(operator, args) {
-        if (operator === 'EQ') {
+        if (operator === 'eq') {
           isDependent = that._isEqual(args);
           return false;
-        } else if (operator === 'LT') {
+        } else if (operator === 'lt') {
           isDependent = that._isLessThan(args);
           return false;
-        } else if (operator === 'GT') {
+        } else if (operator === 'gt') {
           isDependent = that._isGreaterThan(args);
           return false;
-        } else if (operator === 'NOT') {
+        } else if (operator === 'not') {
           isDependent = !that.resolveDependency(args);
           return false;
-        } else if (operator === 'IS') {
+        } else if (operator === 'is') {
           isDependent = that._isSet(args);
           return false;
-        } else if (operator === 'AND') {
+        } else if (operator === 'and') {
           isDependent = true;
           $.each(args, function(index, argument) {
               isDependent = that.resolveDependency(argument) && isDependent;
@@ -85,7 +85,7 @@
               }
           });
           return false;
-        } else if (operator === 'OR') {
+        } else if (operator === 'or') {
           $.each(args, function(index, argument) {
               isDependent = that.resolveDependency(argument) || isDependent;
               if (isDependent === true) {
@@ -100,13 +100,13 @@
       return isDependent;
     },
     _isEqual: function(args) {
-      return args.length > 1 && this._getArgument(args[0]) == this._getArgument(args[1]);
+      return args.length > 1 && this._getArgument(args[0]).toString() === this._getArgument(args[1]).toString();
     },
     _isLessThan: function(args) {
-      return args.length > 1 && parseInt(this._getArgument(args[0])) < parseInt(this._getArgument(args[1]));
+      return args.length > 1 && parseFloat(this._getArgument(args[0])) < parseFloat(this._getArgument(args[1]));
     },
     _isGreaterThan: function(args) {
-      return args.length > 1 && parseInt(this._getArgument(args[0])) > parseInt(this._getArgument(args[1]));
+      return args.length > 1 && parseFloat(this._getArgument(args[0])) > parseFloat(this._getArgument(args[1]));
     },
     _isSet: function(args) {
       return typeof(args[0]) !== 'undefined' && this._getArgument(args[0]).length > 0;
