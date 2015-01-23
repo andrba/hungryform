@@ -30,29 +30,6 @@ if form.valid?
 end
 ```
 
-To assign values to the form elements pass them as a hash on form initialization. The params hash must consist of elements names and their values. Please note, that the elements names must contain the full path to the element, starting from the page name.
-
-```ruby
-params = {
-  "first_first_name" => "John",
-  "first_last_name" => "Doe",
-  "second_address" => "John's address",
-  "third_occupation" => "Software engineer",
-  "third_employment_history_history" => "John's employment history"
-}
-
-form = HungryForm::Form.new :params => params do
-...
-end
-
-```
-
-You can assign default value to a form element:
-
-```ruby
-text_field :email, value: "john.doe@yahoo.com"
-```
-
 ## Rails
 
 Installation:
@@ -130,6 +107,31 @@ HungryForm::Form.new do
   end
 end
     
+```
+
+## Assigning values
+
+To assign values to form fields pass them as a hash on form initialization. The params hash must consist of field names and their values. Please note, that the field names must contain the full path to the field, starting from the page name.
+
+```ruby
+params = {
+  "first_first_name" => "John",
+  "first_last_name" => "Doe",
+  "second_address" => "John's address",
+  "third_occupation" => "Software engineer",
+  "third_employment_history_history" => "John's employment history"
+}
+
+form = HungryForm::Form.new :params => params do
+...
+end
+
+```
+
+You can assign default value to a form field:
+
+```ruby
+text_field :email, value: "john.doe@yahoo.com"
 ```
 
 ## Validation
