@@ -30,9 +30,7 @@ if form.valid?
 end
 ```
 
-## Rails
-
-Installation:
+## Rails Installation
 
 Add the ```hungryform``` gem to your Gemfile:
 
