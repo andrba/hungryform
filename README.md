@@ -18,7 +18,7 @@ form = HungryForm::Form.new do
     text_field :occupation
     
     # Show this group only when the occupation field is not empty
-    group :employment_history, dependency: '{"SET": "third_occupation"}' do
+    group :employment_history, dependency: { set: "third_occupation" } do
       html :before, value: "Employment history over the last 5 years"
       text_area :history, value: "Default value"
     end
