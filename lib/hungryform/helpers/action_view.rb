@@ -6,7 +6,7 @@ module HungryForm
       options[:data][:rel] ||= form_rel(form)
       options[:class] = [options[:class], "hungryform"].compact.join(' ')
 
-      views_prefix = options.delete(:views_prefix) || 'hungryform'
+      views_prefix = options.delete(:views_prefix) || HungryForm.configuration.views_prefix
 
       form_tag('', options) do
         render partial: "#{views_prefix}/form", locals: {

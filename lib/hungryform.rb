@@ -1,4 +1,19 @@
 module HungryForm
+  class << self
+    attr_writer :configuration
+
+    def configuration
+      @configuration ||= Configuration.new
+    end
+
+    def configure
+      yield(configuration)
+    end
+
+    def reset_config
+      @configuration = Configuration.new
+    end
+  end
 end
 
 begin
@@ -14,6 +29,7 @@ require 'hungryform/version'
 require 'hungryform/form'
 require 'hungryform/exceptions'
 require 'hungryform/resolver'
+require 'hungryform/configuration'
 require 'hungryform/validator'
 require 'hungryform/elements'
 

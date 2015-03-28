@@ -37,6 +37,26 @@ describe HungryForm do
     end
   end
 
+  describe ".configure" do
+    before do
+      HungryForm.configure do |config|
+        config.views_prefix = '/new/prefix'
+      end
+    end
+
+    it "sets a new views prefix" do
+      HungryForm.configure do |config|
+        config.views_prefix = '/new/prefix'
+      end
+
+      expect(HungryForm.configuration.views_prefix).to eq '/new/prefix'
+    end
+
+    after do
+      HungryForm.reset_config
+    end
+  end
+
   describe "#page" do 
     subject(:form) { HungryForm::Form.new() {} }
 
