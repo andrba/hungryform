@@ -1,5 +1,13 @@
 module HungryForm
   module Elements
+    # Find a class of the Elements module by name
+    def self.find_class(name)
+      constants.find { |c| Class === const_get(c) && c.to_s.underscore.to_sym == name }
+    end
+
+    def self.all_classes
+      constants.select { |c| Class === const_get(c) }
+    end
   end
 end
 

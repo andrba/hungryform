@@ -38,18 +38,20 @@ describe HungryForm do
   end
 
   describe ".configure" do
-    before do
-      HungryForm.configure do |config|
-        config.views_prefix = '/new/prefix'
-      end
-    end
-
     it "sets a new views prefix" do
       HungryForm.configure do |config|
         config.views_prefix = '/new/prefix'
       end
 
       expect(HungryForm.configuration.views_prefix).to eq '/new/prefix'
+    end
+
+    it "configures default element options" do
+      HungryForm.configure do |config|
+        config.text_field["data-length"] = 100
+      end
+
+      expect(HungryForm.configuration.text_field["data-length"]).to eq 100
     end
 
     after do

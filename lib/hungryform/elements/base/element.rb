@@ -11,7 +11,8 @@ module HungryForm
         hashable :visible, :dependency, :name, :label
 
         def initialize(name, parent, resolver, attributes = {})
-          @attributes = attributes.dup
+          @attributes = HungryForm.configuration.send(self.class.name.demodulize.underscore).dup
+          @attributes.merge!(attributes)
 
           @placeholders ||= {}
           @resolver = resolver
