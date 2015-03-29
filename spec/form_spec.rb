@@ -48,10 +48,10 @@ describe HungryForm do
 
     it "configures default element options" do
       HungryForm.configure do |config|
-        config.text_field["data-length"] = 100
+        config.text_field my_attr: 100
       end
 
-      expect(HungryForm.configuration.text_field["data-length"]).to eq 100
+      expect(HungryForm.configuration.text_field[:my_attr]).to eq 100
     end
 
     after do

@@ -17,7 +17,12 @@ module HungryForm
         klass_name = klass.to_s.underscore.to_sym
         @elements_default_attributes[klass_name] = {}
 
-        define_singleton_method klass_name do
+        # Assign a default attribute to an element
+        define_singleton_method klass_name do |attributes = {}|
+          if attributes.any?
+            @elements_default_attributes[klass_name].merge!(attributes)
+          end
+
           @elements_default_attributes[klass_name]
         end
       end
