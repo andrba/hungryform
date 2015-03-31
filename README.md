@@ -29,35 +29,6 @@ if form.valid?
   form.to_json
 end
 ```
-
-## Rails Installation
-
-Add the ```hungryform``` gem to your Gemfile:
-
-```ruby
-gem "hungryform"
-```
-
-Add the Hungryform require to your application.js:
-
-```javascript
-//= require hungryform
-```
-
-Add the Hungryform require to your application.css:
-
-```css
-//= require hungryform
-```
-
-Use the following helper to generate the form in your views:
-
-```ruby
-<%= hungry_form_for(@form) %>
-```
-
-You can redefine the field templates by creating your own ones in the views/hungryform folder.
-
 ## Field Dependencies
 
 Each element of HungryForm, including pages and groups, can have a ```dependency``` parameter. This parameter must be a hash, containing a tree of basic operations. The dependency tree eventually resolves into to a boolean result. Within this tree you can use and combine the following operators, creating complex dependencies that can involve multiple elements:
