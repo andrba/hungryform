@@ -115,12 +115,9 @@ To configure the gem use the configuration block:
 
 ```ruby
 HungryForm.configure do |config|
-  config.views_prefix = 'myform'
   config.text_field maxlength: 100
 end
 ```
-
-```views_prefix```: Set this option in case you want to override the standard elements templates with your own ones. The prefix must match the folder name in your views folder where you keep the elements partials.
 
 ```text_field``` (or any other element name): Assign an attribute to all elements of this type
 
