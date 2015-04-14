@@ -1,6 +1,6 @@
 # HungryForm [![Build Status](https://travis-ci.org/andrba/hungryform.svg?branch=master)](https://travis-ci.org/andrba/hungryform) [![Code Climate](https://codeclimate.com/github/andrba/hungryform/badges/gpa.svg)](https://codeclimate.com/github/andrba/hungryform)
 
-HungryForm is a gem for managing multiple page forms. The main purpose of this gem is to give developers an easy DSL to build complex forms. 
+HungryForm is a gem for managing multiple page forms. The main purpose of this gem is to give developers an easy DSL to build complex forms. Rails integration can be done via the [hungryform-rails](https://github.com/andrba/hungryform-rails) gem.
 
 ## Usage
 
@@ -115,12 +115,9 @@ To configure the gem use the configuration block:
 
 ```ruby
 HungryForm.configure do |config|
-  config.views_prefix = 'myform'
   config.text_field maxlength: 100
 end
 ```
-
-```views_prefix```: Set this option in case you want to override the standard elements templates with your own ones. The prefix must match the folder name in your views folder where you keep the elements partials.
 
 ```text_field``` (or any other element name): Assign an attribute to all elements of this type
 
