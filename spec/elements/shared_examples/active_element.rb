@@ -1,4 +1,6 @@
 RSpec.shared_examples "an active element" do
+  it_behaves_like 'a hashable element'
+
   describe ".new" do
     it "should have empty error" do
       expect(subject.error).to eq ""
@@ -40,13 +42,6 @@ RSpec.shared_examples "an active element" do
         expect(subject.valid?).to eq false
         expect(subject.error).to eq 'This field is required'
       end
-    end
-  end
-
-  describe "#to_hash" do
-    it 'should include required, value and error' do
-      options.merge!(value: '', required: true)
-      expect(subject.to_hash).to include(:required, :value, :error)
     end
   end
 end

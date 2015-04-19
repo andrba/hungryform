@@ -20,32 +20,63 @@ module HungryForm
             self.required = false
           end
 
-          # Leave only the attributes that are being methods of the HungryForm::Validator class
-          @validation_rules = @attributes.select { |key, _| HungryForm::Validator.singleton_class.instance_methods(false).include?(key) }
+          # Determine validation attributes
+          # They can be only the methods of the HungryForm::Validator class
+          # or methods of the Validator module of the current class 
+          methods = HungryForm::Validator.singleton_class.instance_methods(false)
+          if self.class.const_defined?(:Validator)
+            methods += self.class.const_get(:Validator).instance_methods(false)
+          end
+
+          @validation_rules = @attributes.select { |key, _| methods.include?(key) }
           @attributes.delete_if { |key, _| @validation_rules.key?(key) }
 
           set_value
         end
 
+        # Element valid?
+        # Performs element validation
         def valid?
           clear_error
-          is_valid = true
           return true unless visible?
 
           @validation_rules.each do |key, rule|
-            self.error = HungryForm::Validator.send(key, self, rule) || ''
+            validate_rule(key, rule)
+
             unless error.empty?
               self.error = "This field #{error}"
-              is_valid = false
-              break
+              return false
             end
           end
 
-          is_valid
+          true
         end
 
+        # Element invalid?
+        # Performs elemen validation
         def invalid?
           !valid?
+        end
+
+        # Validate a particular validation rule
+        # Searches for the validation attribute in the Validator module
+        # of the element's class or in the global Validator module
+        #
+        # Sample:
+        # text_field :txt, :required => true 
+        # will search for the "required" singleton method
+        # in the HungryForm::Elements::TextField::Validator and in the
+        # HungryGorm::Validator 
+        def validate_rule(attribute, rule)
+          if self.class.const_defined?(:Validator)
+            validator = self.class.const_get(:Validator)
+          end
+          
+          if validator.nil? || !validator.singleton_class.instance_methods(false).include?(attribute)
+            validator = HungryForm::Validator
+          end
+
+          self.error = validator.send(attribute, self, rule) || ''
         end
 
         def set_value

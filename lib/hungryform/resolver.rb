@@ -45,18 +45,18 @@ module HungryForm
 
         arguments = [arguments] unless arguments.is_a?(Array)
 
-        arguments = arguments[0..1].map { |name| get_value(name) }
-        return false if arguments.any?(&:nil?)
+        values = arguments[0..1].map { |name| get_value(name) }
+        return false if values.any?(&:nil?)
 
         case operator
         when :eq
-          return arguments[0].to_s == arguments[1].to_s
+          return values[0].to_s == values[1].to_s
         when :lt
-          return arguments[0].to_f < arguments[1].to_f
+          return values[0].to_f < values[1].to_f
         when :gt
-          return arguments[0].to_f > arguments[1].to_f
+          return values[0].to_f > values[1].to_f
         when :set
-          return !arguments[0].empty?
+          return !values[0].empty?
         end
       end
     end
