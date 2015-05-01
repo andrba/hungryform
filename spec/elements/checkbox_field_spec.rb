@@ -52,5 +52,10 @@ describe HungryForm::Elements::CheckboxField do
       resolver_options[:params] = { "group_element_name" => 0 }
       expect(subject.checked?).to eq false
     end
+
+    it "should not be checked when no params given" do
+      resolver_options[:params] = {}
+      expect(subject.checked?).to eq false
+    end
   end
 end

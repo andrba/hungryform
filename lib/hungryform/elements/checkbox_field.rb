@@ -2,7 +2,7 @@ module HungryForm
   module Elements
     class CheckboxField < Base::ActiveElement
       def set_value
-        self.value = resolver.params[name] || attributes.delete(:value)
+        self.value = resolver.params[name] || attributes.delete(:value) || 0
 
         if value == 0
           attributes.delete(:checked)
