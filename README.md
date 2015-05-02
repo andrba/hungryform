@@ -2,6 +2,8 @@
 
 HungryForm is a gem for managing multiple page forms. The main purpose of this gem is to give developers an easy DSL to build complex forms. Rails integration can be done via the [hungryform-rails](https://github.com/andrba/hungryform-rails) gem.
 
+![image](https://cloud.githubusercontent.com/assets/2174682/7443144/f07081bc-f179-11e4-921d-cbb4ded02776.png)
+
 ## Usage
 
 ```ruby
