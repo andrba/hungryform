@@ -86,6 +86,17 @@ describe HungryForm do
     end
   end
 
+  describe "#validate" do
+    it "should be valid" do
+      expect(subject.valid?).to eq true
+    end
+
+    it "should be invalid" do
+      options[:params]["first_first_name"] = ''
+      expect(subject.valid?).to eq false
+    end
+  end
+
   describe "#valid?" do
     it "should be valid" do
       expect(subject.valid?).to eq true
@@ -94,6 +105,17 @@ describe HungryForm do
     it "should be invalid" do
       options[:params]["first_first_name"] = ''
       expect(subject.valid?).to eq false
+    end
+  end
+
+  describe "#invalid?" do
+    it "should not be invalid" do
+      expect(subject.invalid?).to eq false
+    end
+
+    it "should be invalid" do
+      options[:params]["first_first_name"] = ''
+      expect(subject.invalid?).to eq true
     end
   end
 

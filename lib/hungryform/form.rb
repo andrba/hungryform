@@ -52,7 +52,7 @@ module HungryForm
       @current_page ||= pages.first
     end
 
-    # Create a form page
+    # Create a new page
     def page(name, attributes = {}, &block)
       page = Elements::Page.new(name, nil, @resolver, attributes, &block)
       pages << page if page.visible?
@@ -60,7 +60,7 @@ module HungryForm
 
     # Entire form validation. Loops through the form pages and
     # validates each page individually.
-    def valid?
+    def validate
       is_valid = true
 
       pages.each do |page|
@@ -71,8 +71,12 @@ module HungryForm
       is_valid
     end
 
+    def valid?
+      validate
+    end
+
     def invalid?
-      !valid?
+      !validate
     end
 
     # Get all the elements the form consists of
@@ -101,12 +105,14 @@ module HungryForm
       end
     end
 
+    # Get the next page of the form
     def next_page
       pages.each_cons(2) do |page, next_page|
         return next_page if page == current_page
       end
     end
 
+    # Get the previous page of the form
     def prev_page
       pages.each_cons(2) do |prev_page, page|
         return prev_page if page == current_page
