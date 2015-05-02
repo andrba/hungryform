@@ -1,10 +1,6 @@
 module HungryForm
   class Configuration
-    attr_accessor :views_prefix
-
     def initialize
-      @views_prefix = 'hungryform'
-
       init_element_default_attributes
     end
 

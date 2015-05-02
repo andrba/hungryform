@@ -4,7 +4,7 @@ module HungryForm
       def set_value
         self.value = resolver.params[name] || attributes.delete(:value) || 0
 
-        if value == 0
+        if value.to_i == 0
           attributes.delete(:checked)
         else
           self.value = 1

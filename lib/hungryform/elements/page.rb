@@ -24,7 +24,7 @@ module HungryForm
 
       def initialize(name, parent, resolver, attributes = {}, &block)
         super
-        self.title ||= label
+        self.title = attributes[:title] || label
       end
 
       def to_s

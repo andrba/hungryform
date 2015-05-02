@@ -16,12 +16,12 @@ module HungryForm
       # Check if all of the values from the resolver params are present
       # in the options.
       def acceptable_values?
-        options_sym_keys = options.keys.map(&:to_sym)
+        options_s_keys = options.keys.map(&:to_s)
 
         if @attributes[:multiple] && resolver.params[name].respond_to?(:map)
-          (resolver.params[name].map(&:to_sym) - options_sym_keys).empty?
+          (resolver.params[name].map(&:to_s) - options_s_keys).empty?
         else
-          options_sym_keys.include?(resolver.params[name].to_sym)
+          options_s_keys.include?(resolver.params[name].to_s)
         end
       end
     end
