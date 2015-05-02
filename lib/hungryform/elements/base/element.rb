@@ -11,7 +11,7 @@ module HungryForm
         hashable :visible, :dependency, :name, :label
 
         def initialize(name, parent, resolver, attributes = {})
-          @attributes = HungryForm.configuration.send(self.class.name.demodulize.underscore).dup
+          @attributes = configuration.dup
           @attributes.merge!(attributes)
 
           @placeholders ||= {}
@@ -41,6 +41,11 @@ module HungryForm
 
         def dependency_json
           JSON.generate(dependency) if dependency
+        end
+
+        # Configuration params specific to the element
+        def configuration
+          HungryForm.configuration.send(self.class.name.demodulize.underscore)
         end
       end
     end
