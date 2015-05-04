@@ -96,12 +96,12 @@ module HungryForm
 
     # Create a hash of form elements values
     def values
-      active_elements = elements.select do |name, el|
+      active_elements = elements.select do |_, el|
         el.is_a? Elements::Base::ActiveElement
       end
 
-      active_elements.each_with_object({}) do |(name, el), o| 
-        o[name.to_sym] = el.value 
+      active_elements.each_with_object({}) do |(name, el), o|
+        o[name.to_sym] = el.value
       end
     end
 
