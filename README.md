@@ -12,7 +12,7 @@ form = HungryForm::Form.new do
     text_field :first_name, required: true
     text_field :last_name, required: true
   end
-  page :second, do 
+  page :second do 
     text_field :address
     select_field :gender, options: { "M" => "Male", "F" => "Female" }, required: true
   end
